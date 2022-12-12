@@ -1,0 +1,784 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:addthis="http://www.addthis.com/help/api-spec" >
+<head profile="http://gmpg.org/xfn/11">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>HC-SR04 Demo For Arduino | ElecFreaks</title>
+    
+<!-- Stylesheet & Favicon -->
+<link rel="icon" type="image/png" href="http://www.elecfreaks.com/wp-content/uploads/2011/07/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="http://www.elecfreaks.com/wp-content/themes/modernblogger/style.css" />
+
+<!-- Google Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
+
+
+<!-- WP Head -->
+<style type='text/css' media='screen' >.socialwrap li.icon_text a img, .socialwrap li.iconOnly a img, .followwrap li.icon_text a img, .followwrap li.iconOnly a img{border-width:0 !important;background-color:none;}#follow.right {width:32px;position:fixed; right:0; top:170px;background-color:#3aa4fa;padding:10px 0;font-family:impact,charcoal,arial, helvetica,sans-serif;-moz-border-radius-topleft: 5px;-webkit-border-top-left-radius:5px;-moz-border-radius-bottomleft:5px;-webkit-border-bottom-left-radius:5px;}#follow.right ul {padding:0; margin:0; list-style-type:none !important;font-size:24px;color:black;}
+#follow.right ul li {padding-bottom:10px;list-style-type:none !important;padding-left:4px;padding-right:4px}
+#follow img{border:none;}#follow.right ul li.follow {margin:0 4px;}
+#follow.right ul li.follow img {border-width:0;display:block;overflow:hidden; background:transparent url(http://www.elecfreaks.com/wp-content/plugins/share-and-follow/images/impact/follow-right.png) no-repeat -168px 0px;height:79px;width:20px;}
+#follow.right ul li a {display:block;}
+#follow.right ul li.follow span, #follow ul li a span {display:none}.share {margin:0 3px 3px 0;}
+.phat span {display:inline;}
+ul.row li {float:left;list-style-type:none;}
+li.iconOnly a span.head {display:none}
+#follow.left ul.size16 li.follow{margin:0px auto !important}
+li.icon_text a {padding-left:0;margin-right:3px}
+li.text_only a {background-image:none !important;padding-left:0;}
+li.text_only a img {display:none;}
+li.icon_text a span{background-image:none !important;padding-left:0 !important; }
+li.iconOnly a span.head {display:none}
+ul.socialwrap li {margin:0 3px 3px 0 !important;}
+ul.socialwrap li a {text-decoration:none;}ul.row li {float:left;line-height:auto !important;}
+ul.row li a img {padding:0}.size16 li a,.size24 li a,.size32 li a, .size48 li a, .size60 li a {display:block}ul.socialwrap {list-style-type:none !important;margin:0; padding:0;text-indent:0 !important;}
+ul.socialwrap li {list-style-type:none !important;background-image:none;padding:0;list-style-image:none !important;}
+ul.followwrap {list-style-type:none !important;margin:0; padding:0}
+ul.followwrap li {margin-right:3px;margin-bottom:3px;list-style-type:none !important;}
+#follow.right ul.followwrap li, #follow.left ul.followwrap li {margin-right:0px;margin-bottom:0px;}
+.shareinpost {clear:both;padding-top:0px}.shareinpost ul.socialwrap {list-style-type:none !important;margin:0 !important; padding:0 !important}
+.shareinpost ul.socialwrap li {padding-left:0 !important;background-image:none !important;margin-left:0 !important;list-style-type:none !important;text-indent:0 !important}
+.socialwrap li.icon_text a img, .socialwrap li.iconOnly a img{border-width:0}ul.followrap li {list-style-type:none;list-style-image:none !important;}
+div.clean {clear:left;}
+div.display_none {display:none;}
+</style><style type='text/css' media='print' >.socialwrap li.icon_text a img, .socialwrap li.iconOnly a img, .followwrap li.icon_text a img, .followwrap li.iconOnly a img{border-width:0 !important;background-color:none;}#follow.right {width:32px;position:fixed; right:0; top:170px;background-color:#3aa4fa;padding:10px 0;font-family:impact,charcoal,arial, helvetica,sans-serif;-moz-border-radius-topleft: 5px;-webkit-border-top-left-radius:5px;-moz-border-radius-bottomleft:5px;-webkit-border-bottom-left-radius:5px;}#follow.right ul {padding:0; margin:0; list-style-type:none !important;font-size:24px;color:black;}
+#follow.right ul li {padding-bottom:10px;list-style-type:none !important;padding-left:4px;padding-right:4px}
+#follow img{border:none;}#follow.right ul li.follow {margin:0 4px;}
+#follow.right ul li.follow img {border-width:0;display:block;overflow:hidden; background:transparent url(http://www.elecfreaks.com/wp-content/plugins/share-and-follow/images/impact/follow-right.png) no-repeat -168px 0px;height:79px;width:20px;}
+#follow.right ul li a {display:block;}
+#follow.right ul li.follow span, #follow ul li a span {display:none}.share {margin:0 3px 3px 0;}
+.phat span {display:inline;}
+ul.row li {float:left;list-style-type:none;}
+li.iconOnly a span.head {display:none}
+#follow.left ul.size16 li.follow{margin:0px auto !important}
+li.icon_text a {padding-left:0;margin-right:3px}
+li.text_only a {background-image:none !important;padding-left:0;}
+li.text_only a img {display:none;}
+li.icon_text a span{background-image:none !important;padding-left:0 !important; }
+li.iconOnly a span.head {display:none}
+ul.socialwrap li {margin:0 3px 3px 0 !important;}
+ul.socialwrap li a {text-decoration:none;}ul.row li {float:left;line-height:auto !important;}
+ul.row li a img {padding:0}.size16 li a,.size24 li a,.size32 li a, .size48 li a, .size60 li a {display:block}ul.socialwrap {list-style-type:none !important;margin:0; padding:0;text-indent:0 !important;}
+ul.socialwrap li {list-style-type:none !important;background-image:none;padding:0;list-style-image:none !important;}
+ul.followwrap {list-style-type:none !important;margin:0; padding:0}
+ul.followwrap li {margin-right:3px;margin-bottom:3px;list-style-type:none !important;}
+#follow.right ul.followwrap li, #follow.left ul.followwrap li {margin-right:0px;margin-bottom:0px;}
+.shareinpost {clear:both;padding-top:0px}.shareinpost ul.socialwrap {list-style-type:none !important;margin:0 !important; padding:0 !important}
+.shareinpost ul.socialwrap li {padding-left:0 !important;background-image:none !important;margin-left:0 !important;list-style-type:none !important;text-indent:0 !important}
+.socialwrap li.icon_text a img, .socialwrap li.iconOnly a img{border-width:0}ul.followrap li {list-style-type:none;list-style-image:none !important;}
+div.clean {clear:left;}
+div.display_none {display:none;}
+</style><link rel="alternate" type="application/rss+xml" title="ElecFreaks &raquo; HC-SR04 Demo For Arduino Comments Feed" href="http://www.elecfreaks.com/244.html/feed" />
+<link rel="stylesheet" href="http://www.elecfreaks.com/wp-content/plugins/xhanch-my-twitter/css/css.php" type="text/css" media="screen" /><style type="text/css">/*<![CDATA[*/ #xmt_Primary_wid.xmt ul li.tweet_list{min-height:57px}  /*]]>*/</style><link rel='stylesheet' id='gdsr_style_main-css'  href='http://www.elecfreaks.com/wp-content/plugins/gd-star-rating/css/gdsr.css.php?t=1328489469&#038;s=a10i10m20k20c05r05%23121620243046%23121620243240%23s1pchristmas%23s1pcrystal%23s1pdarkness%23s1poxygen%23s1goxygen_gif%23s1pplain%23s1ppumpkin%23s1psoft%23s1pstarrating%23s1pstarscape%23t1pclassical%23t1pstarrating%23t1gstarrating_gif%23lsgflower&#038;o=off&#038;ver=1.9.13' type='text/css' media='all' />
+<link rel='stylesheet' id='gdsr_style_xtra-css'  href='http://www.elecfreaks.com/wp-content/gd-star-rating/css/rating.css?ver=1.9.13' type='text/css' media='all' />
+<link rel='stylesheet' id='gtranslate-style-css'  href='http://www.elecfreaks.com/wp-content/plugins/gtranslate/gtranslate-style16.css?ver=3.2.1' type='text/css' media='all' />
+<link rel='stylesheet' id='codecolorer-css'  href='http://www.elecfreaks.com/wp-content/plugins/codecolorer/codecolorer.css?ver=0.9.9' type='text/css' media='screen' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='http://www.elecfreaks.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.elecfreaks.com/wp-includes/js/l10n.js?ver=20101110'></script>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2'></script>
+<script type='text/javascript' src='http://www.elecfreaks.com/wp-content/plugins/xhanch-my-twitter/js/marquee.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://www.elecfreaks.com/wp-content/plugins/xhanch-my-twitter/js/innerfade.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://www.elecfreaks.com/wp-content/plugins/gd-star-rating/js/gdsr.js?ver=1.9.13'></script>
+<script type='text/javascript' src='http://www.elecfreaks.com/wp-content/plugins/gtranslate/jquery-translate.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://www.elecfreaks.com/wp-includes/js/comment-reply.js?ver=20090102'></script>
+<script type='text/javascript' src='http://www.elecfreaks.com/wp-content/themes/modernblogger/js/superfish.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://www.elecfreaks.com/wp-content/themes/modernblogger/js/supersubs.js?ver=3.2.1'></script>
+<script type='text/javascript' src='http://www.elecfreaks.com/wp-content/themes/modernblogger/js/sliding_effect.js?ver=3.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.elecfreaks.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.elecfreaks.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='ElecFreaks' href='http://www.elecfreaks.com' />
+<link rel='start' title='Welcome to ElecFreaks!' href='http://www.elecfreaks.com/57.html' />
+<link rel='prev' title='nRF24L01 Module Demo for Arduino' href='http://www.elecfreaks.com/203.html' />
+<link rel='next' title='SDM-IO Non-Blind Area Ultrasonic Distance Sensor Module' href='http://www.elecfreaks.com/264.html' />
+<link rel='shortlink' href='http://www.elecfreaks.com/?p=244' />
+<link rel="image_src" href="http://www.elecfreaks.com/wp-content/uploads/2011/05/Ultra01_01-300x217.jpg" />
+<!-- All in One SEO Pack 1.6.13.8 by Michael Torbert of Semper Fi Web Design[402,448] -->
+<meta name="description" content="the HC-SR04 modules, which has stable performance and high ranging accuracy make it a popular module in electronic market" />
+<meta name="keywords" content="arduino,ultra sonic,ultrasonic,wireless,all post of elecfreaks" />
+<link rel="canonical" href="http://www.elecfreaks.com/244.html" />
+<!-- /all in one seo pack -->
+<script type="text/javascript">
+//<![CDATA[
+var gdsr_cnst_nonce = "b06b4979f3";
+var gdsr_cnst_ajax = "http://www.elecfreaks.com/wp-content/plugins/gd-star-rating/ajax.php";
+var gdsr_cnst_button = 1;
+var gdsr_cnst_cache = 0;
+// ]]>
+</script>
+<!--[if IE]><style type="text/css">.ratemulti .starsbar .gdcurrent { -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; filter: alpha(opacity=70); }</style><![endif]-->
+<!-- wp thread comment 1.4.9.4.002 -->
+<style type="text/css" media="screen">
+.editComment, .editableComment, .textComment{
+	display: inline;
+}
+.comment-childs{
+	border: 1px solid #999;
+	margin: 5px 2px 2px 4px;
+	padding: 4px 2px 2px 4px;
+	background-color: white;
+}
+.chalt{
+	background-color: #E2E2E2;
+}
+#newcomment{
+	border:1px dashed #777;width:90%;
+}
+#newcommentsubmit{
+	color:red;
+}
+.adminreplycomment{
+	border:1px dashed #777;
+	width:99%;
+	margin:4px;
+	padding:4px;
+}
+.mvccls{
+	color: #999;
+}
+			
+</style>
+
+<script type="text/javascript" charset="utf-8">
+//SuperFish
+jQuery(function($){
+$(document).ready(function(){
+$('ul.sf-menu').supersubs({ 
+	minWidth:    12,
+    maxWidth:    27,
+     extraWidth:  1
+	}).superfish();
+	});
+//Image opacity hover-over
+var opacity = 1, toOpacity = 0.7, duration = 300;
+		$('.opacity').css('opacity',opacity).hover(
+		function() {
+		$(this).fadeTo(duration,toOpacity);},
+		function() {
+		$(this).fadeTo(duration,opacity);}
+	);
+});
+</script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27773815-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body class="single single-post postid-244 single-format-standard">
+
+<div id="wrap">
+    <div id="main">
+	<div id="header">
+    	<div id="logo">
+        	        	<a id="logo" href="http://www.elecfreaks.com/store"><img class="alignnone" title="ElecFreaks" src="http://www.elecfreaks.com/store/includes/templates/black_pure_free/images/logo.png" alt="" width="940" height="100" /></a>
+              
+            <p></p>
+        </div>
+        <!-- END logo -->
+        
+        
+<div class="clear"></div>
+        
+    </div><!-- END header -->
+ 
+    	<div id="navigation">
+			<div class="menu-top-container"><ul id="menu-top" class="sf-menu"><li id="menu-item-151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-151"><a href="http://www.elecfreaks.com/">Home</a></li>
+<li id="menu-item-152" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-152"><a href="http://www.elecfreaks.com/store">Store</a>
+<ul class="sub-menu">
+	<li id="menu-item-591" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-591"><a href="http://www.elecfreaks.com/store/arduino-c-1.html">Arduino</a>
+	<ul class="sub-menu">
+		<li id="menu-item-592" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-592"><a href="http://www.elecfreaks.com/store/arduino-main-board-c-1_8.html">Main board</a></li>
+		<li id="menu-item-594" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-594"><a href="http://www.elecfreaks.com/store/arduino-shields-c-1_49.html">Shields</a></li>
+	</ul>
+</li>
+	<li id="menu-item-595" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-595"><a href="http://www.elecfreaks.com/store/dev-platform-c-34.html">Dev Platform</a>
+	<ul class="sub-menu">
+		<li id="menu-item-596" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-596"><a href="http://www.elecfreaks.com/store/dev-platform-avr-c-34_35.html">AVR</a></li>
+		<li id="menu-item-597" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-597"><a href="http://www.elecfreaks.com/store/dev-platform-arm-c-34_36.html">ARM</a></li>
+		<li id="menu-item-598" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-598"><a href="http://www.elecfreaks.com/store/dev-platform-cpldfpga-c-34_37.html">CPLD &#038; FPGA</a></li>
+		<li id="menu-item-1563" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1563"><a href="http://www.elecfreaks.com/store/dev-platform-programmers-c-34_59.html">Programmers</a></li>
+	</ul>
+</li>
+	<li id="menu-item-599" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-599"><a href="http://www.elecfreaks.com/store/wireless-c-3.html">Wireless</a>
+	<ul class="sub-menu">
+		<li id="menu-item-600" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-600"><a href="http://www.elecfreaks.com/store/wireless-rf-c-3_4.html">RF</a></li>
+		<li id="menu-item-601" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-601"><a href="http://www.elecfreaks.com/store/4-frequency-ultra-gsmgprs-module-sim900-p-109.html">GPS/GPRS</a></li>
+		<li id="menu-item-602" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-602"><a href="http://www.elecfreaks.com/store/wireless-bluetooth-c-3_50.html">Bluetooth</a></li>
+		<li id="menu-item-603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-603"><a href="http://www.elecfreaks.com/store/wireless-antenna-c-3_7.html">Antenna</a></li>
+	</ul>
+</li>
+	<li id="menu-item-606" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-606"><a href="http://www.elecfreaks.com/store/sensors-c-15.html">Sensors</a>
+	<ul class="sub-menu">
+		<li id="menu-item-607" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-607"><a href="http://www.elecfreaks.com/store/mma7260-three-axis-lowg-micromachined-accelerometer-module-p-31.html">Accelerometer</a></li>
+		<li id="menu-item-608" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-608"><a href="http://www.elecfreaks.com/store/sensors-gas-c-15_17.html">Gas</a></li>
+		<li id="menu-item-609" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-609"><a href="http://www.elecfreaks.com/store/sensors-object-detection-c-15_29.html">Object detection</a></li>
+		<li id="menu-item-610" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-610"><a href="http://www.elecfreaks.com/store/sensors-power-measurement-c-15_18.html">Power Measurement</a></li>
+		<li id="menu-item-1821" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1821"><a href="http://www.elecfreaks.com/store/thermal-sensor-module-adjustable-sensitivity-p-289.html">Temperature</a></li>
+		<li id="menu-item-1822" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1822"><a href="http://www.elecfreaks.com/store/sensors-light-and-sound-c-15_66.html">Light and Sound</a></li>
+	</ul>
+</li>
+	<li id="menu-item-611" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-611"><a href="http://www.elecfreaks.com/store/enc28j60-ethernet-module-p-121.html">Breakout</a></li>
+	<li id="menu-item-612" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-612"><a href="http://www.elecfreaks.com/store/components-c-11.html">Components</a>
+	<ul class="sub-menu">
+		<li id="menu-item-613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-613"><a href="http://www.elecfreaks.com/store/components-button-and-switch-c-11_14.html">Button and Switch</a></li>
+		<li id="menu-item-614" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-614"><a href="http://www.elecfreaks.com/store/components-connector-c-11_13.html">Connector</a></li>
+		<li id="menu-item-1565" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1565"><a href="http://www.elecfreaks.com/store/components-adapter-socket-c-11_52.html">Adapter &#038; Socket</a></li>
+		<li id="menu-item-1566" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1566"><a href="http://www.elecfreaks.com/store/components-res-cap-c-11_55.html">Res &#038; Cap</a></li>
+		<li id="menu-item-1567" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1567"><a href="http://www.elecfreaks.com/store/1w-12-in-1-zener-diode-pack-kit-3v91v-p-211.html">Diode &#038; Tran</a></li>
+		<li id="menu-item-1568" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1568"><a href="http://www.elecfreaks.com/store/components-crystal-oscillator-c-11_51.html">Crystal Oscillator</a></li>
+		<li id="menu-item-1823" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1823"><a href="http://www.elecfreaks.com/store/components-hook-up-c-11_72.html">Hook Up</a></li>
+	</ul>
+</li>
+	<li id="menu-item-615" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-615"><a href="http://www.elecfreaks.com/store/prototyping-c-42.html">Prototyping</a>
+	<ul class="sub-menu">
+		<li id="menu-item-616" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-616"><a href="http://www.elecfreaks.com/store/prototyping-breadboard-c-42_43.html">Breadboard</a></li>
+		<li id="menu-item-1569" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1569"><a href="http://www.elecfreaks.com/store/prototyping-protoboard-c-42_45.html">Protoboard</a></li>
+		<li id="menu-item-1570" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1570"><a href="http://www.elecfreaks.com/store/prototyping-open-bare-board-c-42_41.html">Open Bare Board</a></li>
+		<li id="menu-item-1571" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1571"><a href="http://www.elecfreaks.com/store/prototyping-adapter-board-c-42_62.html">Adapter Board</a></li>
+		<li id="menu-item-617" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-617"><a href="http://www.elecfreaks.com/store/prototyping-cable-wire-c-42_44.html">Cable &#038; Wire</a></li>
+	</ul>
+</li>
+	<li id="menu-item-1572" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1572"><a href="http://www.elecfreaks.com/store/kits-c-54.html">Kits</a></li>
+	<li id="menu-item-1818" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1818"><a href="http://www.elecfreaks.com/store/ic-c-73.html">IC</a>
+	<ul class="sub-menu">
+		<li id="menu-item-1819" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1819"><a href="http://www.elecfreaks.com/store/ic-micro-controler-c-73_75.html">Micro Controler</a></li>
+		<li id="menu-item-1820" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1820"><a href="http://www.elecfreaks.com/store/ic-power-and-driver-c-73_74.html">Power and Driver</a></li>
+	</ul>
+</li>
+	<li id="menu-item-618" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-618"><a href="http://www.elecfreaks.com/store/led-c-20.html">LED</a>
+	<ul class="sub-menu">
+		<li id="menu-item-619" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-619"><a href="http://www.elecfreaks.com/store/led-digitron-c-20_24.html">Digitron</a></li>
+		<li id="menu-item-620" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-620"><a href="http://www.elecfreaks.com/store/led-discrete-led-c-20_21.html">Discrete LED</a></li>
+		<li id="menu-item-621" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-621"><a href="http://www.elecfreaks.com/store/3w-rgb-led-strip-common-anode-12v-p-83.html">High Power LED</a></li>
+		<li id="menu-item-622" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-622"><a href="http://www.elecfreaks.com/store/led-led-matrix-c-20_23.html">LED matrix</a></li>
+	</ul>
+</li>
+	<li id="menu-item-623" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-623"><a href="http://www.elecfreaks.com/store/lcd-c-30.html">LCD</a>
+	<ul class="sub-menu">
+		<li id="menu-item-624" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-624"><a href="http://www.elecfreaks.com/store/lcd-tft-c-30_33.html">TFT</a></li>
+		<li id="menu-item-625" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-625"><a href="http://www.elecfreaks.com/store/lcd-characters-c-30_31.html">Characters</a></li>
+		<li id="menu-item-626" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-626"><a href="http://www.elecfreaks.com/store/lcd-graphic-c-30_32.html">Graphic</a></li>
+	</ul>
+</li>
+	<li id="menu-item-1573" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1573"><a href="http://www.elecfreaks.com/store/pcb-service-c-39.html">PCB Service</a></li>
+	<li id="menu-item-629" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-629"><a href="http://www.elecfreaks.com/store/tools-c-27.html">Tools</a>
+	<ul class="sub-menu">
+		<li id="menu-item-1574" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1574"><a href="http://www.elecfreaks.com/store/tools-storage-c-27_58.html">Storage</a></li>
+		<li id="menu-item-1575" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1575"><a href="http://www.elecfreaks.com/store/tools-hand-tools-c-27_57.html">Hand Tools</a></li>
+		<li id="menu-item-1576" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1576"><a href="http://www.elecfreaks.com/store/bluetooth-usb-adapter-p-240.html">Wireless</a></li>
+		<li id="menu-item-1577" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1577"><a href="http://www.elecfreaks.com/store/dds-signal-generatorsg100x-p-90.html">Measurement</a></li>
+		<li id="menu-item-630" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-630"><a href="http://www.elecfreaks.com/store/tools-debugger-c-27_48.html">Debugger</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-1091" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1091"><a href="http://www.elecfreaks.com/wiki/index.php?title=Catalog_category">Wiki</a></li>
+<li id="menu-item-590" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-590"><a href="http://www.elecfreaks.com/about">About Us</a></li>
+</ul></div>      	</div>
+        <!-- END navigation -->
+<div class="clear"></div>	<div id="post-content">
+    
+    <div class="post-entry clearfix">
+		        
+        <h1>HC-SR04 Demo For Arduino</h1>
+        
+		<div class="post-entry-date date-single">
+        	<div class="date-day">
+				11            </div>
+            <!-- END date-day -->
+			May            </div>
+        	<!-- END post-entry-date -->
+                                	<div id="single-featured-image">
+        		<img width="190" height="160" src="http://www.elecfreaks.com/wp-content/uploads/2011/05/Ultra01_01-190x160.jpg" class="attachment-modern_blogger-post-image wp-post-image" alt="Ultra01_01" title="Ultra01_01" />            </div><!-- END single-featured-image -->
+        
+
+		
+<!-- AddThis Button Begin -->
+<script type="text/javascript">var addthis_product = 'wpp-263';
+var addthis_config = {"data_track_clickback":false,"data_track_addressbar":false,"ui_language":"en"};if (typeof(addthis_share) == "undefined"){ addthis_share = [];}</script><script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dff8e24204bcfe6"></script><p>Now, we are pleased to introduce the Ultrasoni modules <a href="http://www.elecfreaks.com/store/2x-hcsr04-ultrasonic-sensor-distance-measuring-module-p-91.html" target="_blank">HC-SR04</a> to you, which has stable performance and high  accuracy , making it a popular module in electronic market.  Compared to the Shap IR ranging modules, <a href="http://www.elecfreaks.com/store/2x-hcsr04-ultrasonic-sensor-distance-measuring-module-p-91.html" target="_blank">HC-SR04</a> is more cost-effective than it , but it has the same  accuracy and longer  distance.</p>
+<p>The <a href="http://www.elecfreaks.com/store/2x-hcsr04-ultrasonic-sensor-distance-measuring-module-p-91.html" target="_blank">HC-SR04</a> module is easy to use and we has a simple Aruduino demo for the beginning user.</p>
+<p>Soon, we will provide another Ultar Sonic Modules SDM-IO, which has faster response and no Blind Area. Stay tuned.</p>
+<p><span id="more-244"></span></p>
+<p style="text-align: left;">First, it should define two kinds of pins for trigger, 8 for trigger and 9 for echo.</p>
+<pre>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;width:610px;"><div class="text codecolorer">#define CM 1 &nbsp; &nbsp; &nbsp;//Centimeter<br />
+#define INC 0 &nbsp; &nbsp; //Inch<br />
+#define TP 8 &nbsp; &nbsp; &nbsp;//Trig_pin<br />
+#define EP 9 &nbsp; &nbsp; &nbsp;//Echo_pin &nbsp;<br />
+<br />
+void setup()<br />
+{<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;pinMode(TP,OUTPUT); &nbsp; &nbsp; &nbsp; // set TP output pin for trigger<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  pinMode(EP,INPUT); &nbsp; &nbsp; &nbsp; &nbsp;// set EP input pin for echo<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Serial.begin(9600); &nbsp; &nbsp; &nbsp;// init serial 9600<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Serial.println(&quot;-------------------Ultra_Demo_Start---------------------------------&quot;);<br />
+}<br />
+void loop()<br />
+{<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  long microseconds = TP_init(); &nbsp; // trigger and receive<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Serial.print(&quot;microseconds = &quot;);<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Serial.println(microseconds);<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;long distacne_cm = Distance(microseconds, CM); // Calculating the distance<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Serial.print(&quot;Distacne_CM = &quot;);<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Serial.println(distacne_cm); &nbsp; // printf the distance about CM<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;delay(3000);<br />
+}</div></div>
+</pre>
+<p style="text-align: left;">Second, init the trigger signal, you only need to supply a short 10uS pulse to the trigger input to start the ranging, and then the module will send out an 8 cycle burst of ultrasound at 40 kHz and raise its echo.You can calculate the range through the time interval between sending trigger signal and receiving echo signal. the range = high level time * velocity (340M/S) / 2; we suggest to use over 60ms measurement cycle, in order to prevent trigger signal to the echo signal.Then we could Calculating the distance, because we have the pulse width and ues Formula:</p>
+<p><strong>Distance_CM= ((Duration of high level)*(Sonic :340m/s))/2.</strong></p>
+<p><strong><span style="font-weight: normal;">So, we have bellow othre  two function:</span></strong></p>
+<pre>
+<div class="codecolorer-container text default" style="overflow:auto;white-space:nowrap;width:610px;"><div class="text codecolorer">&lt;span style=&quot;color: #888888;&quot;&gt; long Distance(long time, int flag) { long distacne; if(flag) distacne = time /29 / 2 ; // Distance_CM = ((Duration of high level)*(Sonic :340m/s))/2 // = ((Duration of high level)*(Sonic :0.034 cm/us))/2 // = ((Duration of high level)/(Sonic :29.4 cm/us))/2 else distacne = time / 74 / 2; // INC return distacne; } long TP_init() { digitalWrite(TP, LOW); delayMicroseconds(2); digitalWrite(TP, HIGH); // pull the Trig pin to high level for more than 10us impulse delayMicroseconds(10); digitalWrite(TP, LOW); long microseconds = pulseIn(EP,HIGH); // waits for the pin to go HIGH, and returns the length of the pulse in microseconds return microseconds; // return microseconds }&lt;/span&gt;&lt;/pre&gt;<br />
+&lt;pre&gt;</div></div>
+</pre>
+<pre><span style="color: #888888;"><a href="http://www.elecfreaks.com/wp-content/uploads/2011/05/Ultra01_01.jpg"><img class="aligncenter size-full wp-image-249" title="Ultra01_01" src="http://www.elecfreaks.com/wp-content/uploads/2011/05/Ultra01_01.jpg" alt="" width="454" height="329" /></a></span></pre>
+<pre><span style="color: #888888;"><span style="color: #0000ee;"><span style="text-decoration: underline;"><a href="http://www.elecfreaks.com/wp-content/uploads/2011/05/Ultra01_02.jpg"><img class="aligncenter size-full wp-image-250" title="Ultra01_02" src="http://www.elecfreaks.com/wp-content/uploads/2011/05/Ultra01_02.jpg" alt="" width="456" height="330" /></a></span></span></span></pre>
+<pre><span style="color: #888888;"><span style="color: #0000ee;"><span style="text-decoration: underline;"><a href="http://www.elecfreaks.com/wp-content/uploads/2011/05/Ultra01_03.jpg"><img class="aligncenter size-full wp-image-251" title="Ultra01_03" src="http://www.elecfreaks.com/wp-content/uploads/2011/05/Ultra01_03.jpg" alt="" width="470" height="293" /></a> </span></span></span></pre>
+<p>There, you can change the trigger pin and echo pin thougth marco define and also use CM or ICN , than you get the distance show as centimeter or inch, we just show you CM demo.OK, now you get the distance in centimeter . It’s very easy , right ?</p>
+<p>If you have any question , please send email to us at services@elecfreaks.com</p>
+<p>The more information is the datasheet:</p>
+<p><strong><a href=" http://elecfreaks.com/store/download/HC-SR04.pdf ">Download the Datasheet from here.</a></strong></p>
+<p><strong><a href=" http://elecfreaks.com/store/download/HC_SR04_Ultrasionic_Demo.zip">Download the Demo for Arduino.</a></strong></p>
+<div style="display: none">VN:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="article_rater_244" class="ratepost gdsr-oxygen gdsr-size-24"><div class="starsbar gdsr-size-24"><div class="gdouter gdheight"><div id="gdr_vote_a244" style="width: 236.571428571px;" class="gdinner gdheight"></div><div id="gdr_stars_a244" class="gdsr_rating_as"><a id="gdsrX244X10X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="10 / 10" class="s10" rel="nofollow"></a><a id="gdsrX244X9X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="9 / 10" class="s9" rel="nofollow"></a><a id="gdsrX244X8X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="8 / 10" class="s8" rel="nofollow"></a><a id="gdsrX244X7X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="7 / 10" class="s7" rel="nofollow"></a><a id="gdsrX244X6X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="6 / 10" class="s6" rel="nofollow"></a><a id="gdsrX244X5X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="5 / 10" class="s5" rel="nofollow"></a><a id="gdsrX244X4X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="4 / 10" class="s4" rel="nofollow"></a><a id="gdsrX244X3X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="3 / 10" class="s3" rel="nofollow"></a><a id="gdsrX244X2X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="2 / 10" class="s2" rel="nofollow"></a><a id="gdsrX244X1X0XaXarticle_rater_244Xarticle_loader_244X0X24" title="1 / 10" class="s1" rel="nofollow"></a></div></div></div></div><div id="article_loader_244" style="display: none; width: 240px " class="ratingloaderarticle"><div class="loader flower " style="height: 24px"><div class="loaderinner" style="padding-top: 2px">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_a244">Rating: 9.9/<strong>10</strong> (7 votes cast)</div></div></div><div style="display: none">VN:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_244_a_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX244XupXaX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_244_a_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader flower thumb" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_244_a_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX244XdwXaX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_244_a_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader flower thumb" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_244_a" class="gdt-size-20 gdthumbtext">Rating: <strong>+2</strong> (from 2 votes)</div></div><div class="raterclear"></div></div><span class="hreview-aggregate" style="display: none !important;"><span class="item"><span class="fn">HC-SR04 Demo For Arduino</span></span>, <span class="rating"><span class="average">9.9</span> out of <span class="best">10</span> based on <span class="count">7</span> ratings <span class="summary"></span></span></span><div class="addthis_toolbox addthis_default_style " addthis:url='http://www.elecfreaks.com/244.html' addthis:title='HC-SR04 Demo For Arduino '  ><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a><a class="addthis_button_tweet"></a><a class="addthis_counter addthis_pill_style"></a></div><h3  class="related_post_title">Related Posts</h3><ul class="related_post"><li><a href="http://www.elecfreaks.com/264.html" title="SDM-IO Non-Blind Area Ultrasonic Distance Sensor Module">SDM-IO Non-Blind Area Ultrasonic Distance Sensor Module</a></li><li><a href="http://www.elecfreaks.com/203.html" title="nRF24L01 Module Demo for Arduino">nRF24L01 Module Demo for Arduino</a></li><li><a href="http://www.elecfreaks.com/4397.html" title="Arduino  Yún">Arduino  Yún</a></li><li><a href="http://www.elecfreaks.com/3982.html" title="Freaduino VS Arduino ">Freaduino VS Arduino </a></li><li><a href="http://www.elecfreaks.com/3257.html" title="New Product Post 31 – AC UNO and  SDcard Module">New Product Post 31 – AC UNO and  SDcard Module</a></li></ul>
+
+
+
+					
+
+        
+        
+
+        <div id="the-author">ElecFreaks</div>
+&laquo; <a href="http://www.elecfreaks.com/203.html" rel="prev" title="nRF24L01 Module Demo for Arduino">nRF24L01 Module Demo for Arduino</a><p style="float:right"><a href="http://www.elecfreaks.com/264.html" rel="next" title="SDM-IO Non-Blind Area Ultrasonic Distance Sensor Module">SDM-IO Non-Blind Area Ultrasonic Distance Sensor Module</a> &raquo;</p>      
+         
+        <div class="post-entry-bottom">
+        <div class="post-tags">Tagged as:<a href="http://www.elecfreaks.com/tag/arduino" rel="tag">arduino</a> <a href="http://www.elecfreaks.com/tag/ultra-sonic" rel="tag">Ultra Sonic</a> <a href="http://www.elecfreaks.com/tag/ultrasonic" rel="tag">ultrasonic</a> <a href="http://www.elecfreaks.com/tag/wireless" rel="tag">wireless</a></div>        <div class="post-category">
+        Filed under: <a href="http://www.elecfreaks.com/category/ef" title="View all posts in All post of ElecFreaks" rel="category tag">All post of ElecFreaks</a>        </div>
+        <!-- END post-category -->
+        </div>
+        <!-- END post-entry-bottom -->
+        
+        
+        </div>
+        <!-- END post-entry -->
+        
+
+       
+        
+        <div id="related-posts" class="clearfix">
+		<h3>Customers Who Read This Post Also Read</h3>
+			<ul>
+				                                <a href="http://www.elecfreaks.com/518.html" title="The Easy Radio de A7125" class="opacity">
+				<li>
+					<div class="related-posts-thumbnail">
+   	     				<img width="190" height="130" src="http://www.elecfreaks.com/wp-content/uploads/2011/06/A7125-190x130.jpg" class="attachment-modern_blogger-related-image wp-post-image" alt="A7125" title="A7125" />           			</div><!-- /related-posts-thumbnail -->
+                    <h4>The Easy Radio de A7125</h4>  
+				</li>
+                </a>
+                			                                <a href="http://www.elecfreaks.com/2958.html" title="Evaluation of Aplomb SOIC- and TQFP adapters and BreadStrip" class="opacity">
+				<li>
+					<div class="related-posts-thumbnail">
+   	     				<img width="190" height="130" src="http://www.elecfreaks.com/wp-content/uploads/2012/04/evaluation_picture1-190x130.jpg" class="attachment-modern_blogger-related-image wp-post-image" alt="evaluation_picture1" title="evaluation_picture1" />           			</div><!-- /related-posts-thumbnail -->
+                    <h4>Evaluation of Aplomb SOIC- and TQFP adapters and BreadStrip</h4>  
+				</li>
+                </a>
+                			                                <a href="http://www.elecfreaks.com/1798.html" title="New Product Post14" class="opacity">
+				<li>
+					<div class="related-posts-thumbnail">
+   	     				<img width="190" height="130" src="http://www.elecfreaks.com/wp-content/uploads/2011/09/new-13-190x130.jpg" class="attachment-modern_blogger-related-image wp-post-image" alt="new-13" title="new-13" />           			</div><!-- /related-posts-thumbnail -->
+                    <h4>New Product Post14</h4>  
+				</li>
+                </a>
+                					</ul>
+	</div><!-- END related-posts -->
+    <div class="clear"></div>
+                
+	
+<!-- You can start editing here. -->
+<div id="commentsbox">
+<h3 id="comments">13 Comments</h3>
+<div id="comments-title-triangle"></div>
+
+<ol class="commentlist">
+		<li class="pingback even thread-even depth-1" id="comment-6">
+				<div id="div-comment-6" class="comment-body">
+				<div class="comment-author vcard">
+				<cite class="fn"><a href='http://www.elecfreaks.com/264.html' rel='external nofollow' class='url'>SDM-IO Non-Blind Area Ultrasonic Distance Sensor Module | ElecFreaks</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-6">
+			May 12, 2011 at 1:13 pm</a>		</div>
+
+		<p>[...] arduino demo you can reference to HC-SR04, but you should note that transmitted signal is LOW to HIGH  trigger and you should not use [...]</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=6#respond' onclick='return addComment.moveForm("div-comment-6", "6", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-37">
+				<div id="div-comment-37" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/49160ca7e66ef6fa93d5e2d3665ce0e9?s=55&amp;d=http%3A%2F%2Fwww.elecfreaks.com%2Fwp-includes%2Fimages%2Fblank.gif&amp;r=G' class='avatar avatar-55 photo' height='55' width='55' />		<cite class="fn"><a href='http://pkv-private-krankenversicherung-vergleich.info/pkv-vergleichen-private-krankenversicherung-vergleichen.html' rel='external nofollow' class='url'>Elias835</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-37">
+			June 12, 2011 at 7:56 pm</a>		</div>
+
+		<p>Hi Ho forum mitglieder                </p>
+<p>unterschied private und gesetzliche krankenversicherung und gesetzliche krankenkasse vergleich<br />
+<a href="http://pkv-private-krankenversicherung-vergleich.info/" / rel="nofollow">pkv beamter</a><br />
+      rechner private krankenversicherung<br />
+Elias</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,37,1,'Elias835');">Reply</a>]</p><div style="display: none">VA:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_37" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c37" style="width: 0px;" class="gdinner gdheight"></div><div id="gdr_stars_c37" class="gdsr_rating_as"><a id="gdsrX37X5X0XcXcomment_rater_37Xcomment_loader_37X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX37X4X0XcXcomment_rater_37Xcomment_loader_37X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX37X3X0XcXcomment_rater_37Xcomment_loader_37X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX37X2X0XcXcomment_rater_37Xcomment_loader_37X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX37X1X0XcXcomment_rater_37Xcomment_loader_37X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_37" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c37">Rating: 0.0/<strong>5</strong> (0 votes cast)</div></div></div><div style="display: none">VA:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_37_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX37XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_37_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_37_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX37XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_37_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_37_c" class="gdt-size-20 gdthumbtext">Rating: <strong>-1</strong> (from 1 vote)</div></div><div class="raterclear"></div></div>
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=37#respond' onclick='return addComment.moveForm("div-comment-37", "37", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="pingback even thread-even depth-1" id="comment-691">
+				<div id="div-comment-691" class="comment-body">
+				<div class="comment-author vcard">
+				<cite class="fn"><a href='http://silencepc.wordpress.com/2011/08/10/test-minute-boulder-dash-xl-2/' rel='external nofollow' class='url'>Test Minute &#8211; Boulder Dash-XL &laquo; silencepc</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-691">
+			August 10, 2011 at 3:34 pm</a>		</div>
+
+		<p>[...] ventilateur silencieux pc [...]</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=691#respond' onclick='return addComment.moveForm("div-comment-691", "691", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1522">
+				<div id="div-comment-1522" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/e00d57ac5a824838fd88c3bd00dc0cd6?s=55&amp;d=http%3A%2F%2Fwww.elecfreaks.com%2Fwp-includes%2Fimages%2Fblank.gif&amp;r=G' class='avatar avatar-55 photo' height='55' width='55' />		<cite class="fn"><a href='http://www.gianmarcolorenzishoeshop.eu/' rel='external nofollow' class='url'>gianmarco lorenzi</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-1522">
+			August 16, 2011 at 2:24 pm</a>		</div>
+
+		<p>I do think, so long as there exists a today, at this time is invariably the actual setting up range.</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,1522,1,'gianmarco lorenzi');">Reply</a>]</p><div style="display: none">VA:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_1522" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c1522" style="width: 0px;" class="gdinner gdheight"></div><div id="gdr_stars_c1522" class="gdsr_rating_as"><a id="gdsrX1522X5X0XcXcomment_rater_1522Xcomment_loader_1522X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX1522X4X0XcXcomment_rater_1522Xcomment_loader_1522X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX1522X3X0XcXcomment_rater_1522Xcomment_loader_1522X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX1522X2X0XcXcomment_rater_1522Xcomment_loader_1522X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX1522X1X0XcXcomment_rater_1522Xcomment_loader_1522X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_1522" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c1522">Rating: 0.0/<strong>5</strong> (0 votes cast)</div></div></div><div style="display: none">VA:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_1522_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX1522XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_1522_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_1522_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX1522XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_1522_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_1522_c" class="gdt-size-20 gdthumbtext">Rating: <strong>0</strong> (from 0 votes)</div></div><div class="raterclear"></div></div>
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=1522#respond' onclick='return addComment.moveForm("div-comment-1522", "1522", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="comment even thread-even depth-1" id="comment-118304">
+				<div id="div-comment-118304" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/d8c98cd641f933513a0228cb38fd6d7b?s=55&amp;d=http%3A%2F%2Fwww.elecfreaks.com%2Fwp-includes%2Fimages%2Fblank.gif&amp;r=G' class='avatar avatar-55 photo' height='55' width='55' />		<cite class="fn"><a href='http://www.steelband-kanofetti.ch/gb/gb.php' rel='external nofollow' class='url'>günstige pkv</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-118304">
+			October 12, 2012 at 10:13 pm</a>		</div>
+
+		<p>I have been exploring for a little bit for any high-quality articles or weblog posts in this kind of<br />
+house . Exploring in Yahoo I finally stumbled upon this site.<br />
+Studying this information So i am glad to exhibit that I have a very<br />
+excellent uncanny feeling I came upon exactly what I needed.</p>
+<p>I most indisputably will make certain to do not overlook this website and give it a look<br />
+regularly.</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,118304,1,'günstige pkv');">Reply</a>]</p><div style="display: none">VA:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_118304" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c118304" style="width: 0px;" class="gdinner gdheight"></div><div id="gdr_stars_c118304" class="gdsr_rating_as"><a id="gdsrX118304X5X0XcXcomment_rater_118304Xcomment_loader_118304X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX118304X4X0XcXcomment_rater_118304Xcomment_loader_118304X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX118304X3X0XcXcomment_rater_118304Xcomment_loader_118304X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX118304X2X0XcXcomment_rater_118304Xcomment_loader_118304X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX118304X1X0XcXcomment_rater_118304Xcomment_loader_118304X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_118304" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c118304">Rating: 0.0/<strong>5</strong> (0 votes cast)</div></div></div><div style="display: none">VA:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_118304_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX118304XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_118304_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_118304_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX118304XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_118304_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_118304_c" class="gdt-size-20 gdthumbtext">Rating: <strong>0</strong> (from 0 votes)</div></div><div class="raterclear"></div></div>
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=118304#respond' onclick='return addComment.moveForm("div-comment-118304", "118304", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-119735">
+				<div id="div-comment-119735" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/1d4fcedf3601744c0ef20746d9175e48?s=55&amp;d=http%3A%2F%2Fwww.elecfreaks.com%2Fwp-includes%2Fimages%2Fblank.gif&amp;r=G' class='avatar avatar-55 photo' height='55' width='55' />		<cite class="fn"><a href='http://glutenfreelips.com/WilmaCjo' rel='external nofollow' class='url'>private krankenversicherung test</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-119735">
+			October 21, 2012 at 9:11 pm</a>		</div>
+
+		<p>It is not my first time to pay a quick visit this website, i am browsing this site dailly and take pleasant data from here every<br />
+day.</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,119735,1,'private krankenversicherung test');">Reply</a>]</p><div style="display: none">VA:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_119735" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c119735" style="width: 0px;" class="gdinner gdheight"></div><div id="gdr_stars_c119735" class="gdsr_rating_as"><a id="gdsrX119735X5X0XcXcomment_rater_119735Xcomment_loader_119735X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX119735X4X0XcXcomment_rater_119735Xcomment_loader_119735X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX119735X3X0XcXcomment_rater_119735Xcomment_loader_119735X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX119735X2X0XcXcomment_rater_119735Xcomment_loader_119735X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX119735X1X0XcXcomment_rater_119735Xcomment_loader_119735X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_119735" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c119735">Rating: 0.0/<strong>5</strong> (0 votes cast)</div></div></div><div style="display: none">VA:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_119735_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX119735XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_119735_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_119735_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX119735XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_119735_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_119735_c" class="gdt-size-20 gdthumbtext">Rating: <strong>-1</strong> (from 1 vote)</div></div><div class="raterclear"></div></div>
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=119735#respond' onclick='return addComment.moveForm("div-comment-119735", "119735", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="comment even thread-even depth-1" id="comment-127656">
+				<div id="div-comment-127656" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/ac279b1ec1a60e9aeb45623c867f6c69?s=55&amp;d=http%3A%2F%2Fwww.elecfreaks.com%2Fwp-includes%2Fimages%2Fblank.gif&amp;r=G' class='avatar avatar-55 photo' height='55' width='55' />		<cite class="fn"><a href='http://www.mybarexam.com/index.php?do=/blog/76/guidelines-for-insurance-decisions/' rel='external nofollow' class='url'>June</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-127656">
+			November 23, 2012 at 11:05 am</a>		</div>
+
+		<p>Thanks for sharing your info. I truly appreciate your efforts and<br />
+I will be waiting for your next write ups thanks once again.</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,127656,1,'June');">Reply</a>]</p><div style="display: none">VA:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_127656" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c127656" style="width: 0px;" class="gdinner gdheight"></div><div id="gdr_stars_c127656" class="gdsr_rating_as"><a id="gdsrX127656X5X0XcXcomment_rater_127656Xcomment_loader_127656X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX127656X4X0XcXcomment_rater_127656Xcomment_loader_127656X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX127656X3X0XcXcomment_rater_127656Xcomment_loader_127656X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX127656X2X0XcXcomment_rater_127656Xcomment_loader_127656X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX127656X1X0XcXcomment_rater_127656Xcomment_loader_127656X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_127656" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c127656">Rating: 0.0/<strong>5</strong> (0 votes cast)</div></div></div><div style="display: none">VA:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_127656_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX127656XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_127656_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_127656_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX127656XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_127656_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_127656_c" class="gdt-size-20 gdthumbtext">Rating: <strong>0</strong> (from 0 votes)</div></div><div class="raterclear"></div></div>
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=127656#respond' onclick='return addComment.moveForm("div-comment-127656", "127656", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-138781">
+				<div id="div-comment-138781" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://0.gravatar.com/avatar/29d6234d00ddd653f92bd9a6daef1130?s=55&amp;d=http%3A%2F%2Fwww.elecfreaks.com%2Fwp-includes%2Fimages%2Fblank.gif&amp;r=G' class='avatar avatar-55 photo' height='55' width='55' />		<cite class="fn"><a href='http://wbsimms.com' rel='external nofollow' class='url'>Barrett</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-138781">
+			January 24, 2013 at 8:52 pm</a>		</div>
+
+		<p>Do you have a demo for Gadgeteer?  That would be very useful!</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,138781,1,'Barrett');">Reply</a>]</p><div style="display: none">VA:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_138781" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c138781" style="width: 0px;" class="gdinner gdheight"></div><div id="gdr_stars_c138781" class="gdsr_rating_as"><a id="gdsrX138781X5X0XcXcomment_rater_138781Xcomment_loader_138781X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX138781X4X0XcXcomment_rater_138781Xcomment_loader_138781X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX138781X3X0XcXcomment_rater_138781Xcomment_loader_138781X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX138781X2X0XcXcomment_rater_138781Xcomment_loader_138781X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX138781X1X0XcXcomment_rater_138781Xcomment_loader_138781X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_138781" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c138781">Rating: 0.0/<strong>5</strong> (0 votes cast)</div></div></div><div style="display: none">VA:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_138781_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX138781XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_138781_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_138781_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX138781XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_138781_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_138781_c" class="gdt-size-20 gdthumbtext">Rating: <strong>0</strong> (from 0 votes)</div></div><div class="raterclear"></div></div>
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=138781#respond' onclick='return addComment.moveForm("div-comment-138781", "138781", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="comment even thread-even depth-1" id="comment-158798">
+				<div id="div-comment-158798" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/b399a362981de007a2d9a9b2fc3835bb?s=55&amp;d=http%3A%2F%2Fwww.elecfreaks.com%2Fwp-includes%2Fimages%2Fblank.gif&amp;r=G' class='avatar avatar-55 photo' height='55' width='55' />		<cite class="fn">ganesh kumar arya</cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-158798">
+			May 2, 2013 at 9:22 pm</a>		</div>
+
+		<p>how to purchase this module  HC-SR04. from which shop?</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,158798,1,'ganesh kumar arya');">Reply</a>]</p><div style="display: none">VA:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_158798" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c158798" style="width: 0px;" class="gdinner gdheight"></div><div id="gdr_stars_c158798" class="gdsr_rating_as"><a id="gdsrX158798X5X0XcXcomment_rater_158798Xcomment_loader_158798X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX158798X4X0XcXcomment_rater_158798Xcomment_loader_158798X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX158798X3X0XcXcomment_rater_158798Xcomment_loader_158798X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX158798X2X0XcXcomment_rater_158798Xcomment_loader_158798X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX158798X1X0XcXcomment_rater_158798Xcomment_loader_158798X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_158798" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c158798">Rating: 0.0/<strong>5</strong> (0 votes cast)</div></div></div><div style="display: none">VA:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_158798_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX158798XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_158798_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_158798_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX158798XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_158798_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_158798_c" class="gdt-size-20 gdthumbtext">Rating: <strong>0</strong> (from 0 votes)</div></div><div class="raterclear"></div></div>
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=158798#respond' onclick='return addComment.moveForm("div-comment-158798", "158798", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="pingback odd alt thread-odd thread-alt depth-1" id="comment-161405">
+				<div id="div-comment-161405" class="comment-body">
+				<div class="comment-author vcard">
+				<cite class="fn"><a href='http://topkullawattana.wordpress.com/2013/05/18/%e0%b9%80%e0%b8%a3%e0%b8%b7%e0%b9%88%e0%b8%ad%e0%b8%87%e0%b8%a3%e0%b8%b2%e0%b8%a7-%e0%b9%80%e0%b8%a3%e0%b8%b7%e0%b9%88%e0%b8%ad%e0%b8%87%e0%b9%80%e0%b8%' rel='external nofollow' class='url'>เรื่องราว เรื่องเล่า&#8230; จากกิจกรรม Arduino Camp (Innovation BUEN Camp 2013 (14 – 17 พฤษภาคม 2556)) | MyTop.Kullawattana</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-161405">
+			May 18, 2013 at 3:25 pm</a>		</div>
+
+		<p>[...] Ultrasonic : http://www.elecfreaks.com/244.html [...]</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=161405#respond' onclick='return addComment.moveForm("div-comment-161405", "161405", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="pingback even thread-even depth-1" id="comment-161455">
+				<div id="div-comment-161455" class="comment-body">
+				<div class="comment-author vcard">
+				<cite class="fn"><a href='http://topkullawattana.wordpress.com/2013/05/18/%e0%b9%80%e0%b8%a3%e0%b8%b7%e0%b9%88%e0%b8%ad%e0%b8%87%e0%b8%a3%e0%b8%b2%e0%b8%a7-%e0%b9%80%e0%b8%a3%e0%b8%b7%e0%b9%88%e0%b8%ad%e0%b8%87%e0%b9%80%e0%b8%' rel='external nofollow' class='url'>เรื่องราว เรื่องเล่า&#8230; จากกิจกรรม Arduino Camp (Innovation BUEN Camp 2013 (14 – 15 พฤษภาคม 2556)) | MyTop.Kullawattana</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-161455">
+			May 18, 2013 at 9:11 pm</a>		</div>
+
+		<p>[...] Ultrasonic : http://www.elecfreaks.com/244.html [...]</p>
+
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=161455#respond' onclick='return addComment.moveForm("div-comment-161455", "161455", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-166238">
+				<div id="div-comment-166238" class="comment-body">
+				<div class="comment-author vcard">
+		<img alt='' src='http://1.gravatar.com/avatar/3370a896f4c11ede9fd0b2677cb28271?s=55&amp;d=http%3A%2F%2Fwww.elecfreaks.com%2Fwp-includes%2Fimages%2Fblank.gif&amp;r=G' class='avatar avatar-55 photo' height='55' width='55' />		<cite class="fn"><a href='http://www.xx18tubexx.com/user/384/Jeannette' rel='external nofollow' class='url'>Tilly</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-166238">
+			June 16, 2013 at 2:43 am</a>		</div>
+
+		<p>I drop a comment each time I especially enjoy a article on a website<br />
+or I have something to valuable to contribute to<br />
+the conversation. It is a result of the fire communicated in the article I read.<br />
+And on this post HC-SR04 Demo For Arduino | ElecFreaks.<br />
+I was excited enough to drop a thought <img src='http://www.elecfreaks.com/wp-includes/images/smilies/icon_wink.gif' alt=';-)' class='wp-smiley' />  I actually do have<br />
+a couple of questions for you if you don&#8217;t mind. Could it be simply me or does it appear like a few of the remarks appear as if they are coming from brain dead folks? <img src='http://www.elecfreaks.com/wp-includes/images/smilies/icon_razz.gif' alt=':-P' class='wp-smiley' />  And, if you are writing at additional social sites, I&#8217;d like to follow anything fresh you have to post.</p>
+<p>Would you list every one of your community pages<br />
+like your Facebook page, twitter feed, or linkedin profile?</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,166238,1,'Tilly');">Reply</a>]</p><div style="display: none">VA:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_166238" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c166238" style="width: 0px;" class="gdinner gdheight"></div><div id="gdr_stars_c166238" class="gdsr_rating_as"><a id="gdsrX166238X5X0XcXcomment_rater_166238Xcomment_loader_166238X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX166238X4X0XcXcomment_rater_166238Xcomment_loader_166238X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX166238X3X0XcXcomment_rater_166238Xcomment_loader_166238X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX166238X2X0XcXcomment_rater_166238Xcomment_loader_166238X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX166238X1X0XcXcomment_rater_166238Xcomment_loader_166238X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_166238" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c166238">Rating: 0.0/<strong>5</strong> (0 votes cast)</div></div></div><div style="display: none">VA:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_166238_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX166238XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_166238_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_166238_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX166238XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_166238_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_166238_c" class="gdt-size-20 gdthumbtext">Rating: <strong>0</strong> (from 0 votes)</div></div><div class="raterclear"></div></div>
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=166238#respond' onclick='return addComment.moveForm("div-comment-166238", "166238", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+		<li class="trackback even thread-even depth-1" id="comment-174998">
+				<div id="div-comment-174998" class="comment-body">
+				<div class="comment-author vcard">
+				<cite class="fn"><a href='http://louisvuittonofficialstockist.co.uk/' rel='external nofollow' class='url'>louis vuitton outlet uk</a></cite> <span class="says">says:</span>		</div>
+
+		<div class="comment-meta commentmetadata"><a href="http://www.elecfreaks.com/244.html#comment-174998">
+			August 3, 2013 at 3:48 am</a>		</div>
+
+		<p><strong>louis vuitton outlet uk&#8230;</strong></p>
+<p>GUo louis vuitton bags&#8230;</p>
+<div style="display: none">VA:F [1.9.13_1145]</div><div class="ratingblock "><div class="ratingheader "></div><div class="ratingstars "><div id="comment_rater_174998" class="ratecmm gdsr-oxygen gdsr-size-16"><div class="starsbar gdsr-size-16"><div class="gdouter gdheight"><div id="gdr_vote_c174998" style="width: 0px;" class="gdinner gdheight"></div><div id="gdr_stars_c174998" class="gdsr_rating_as"><a id="gdsrX174998X5X0XcXcomment_rater_174998Xcomment_loader_174998X0X16" title="5 / 5" class="s5" rel="nofollow"></a><a id="gdsrX174998X4X0XcXcomment_rater_174998Xcomment_loader_174998X0X16" title="4 / 5" class="s4" rel="nofollow"></a><a id="gdsrX174998X3X0XcXcomment_rater_174998Xcomment_loader_174998X0X16" title="3 / 5" class="s3" rel="nofollow"></a><a id="gdsrX174998X2X0XcXcomment_rater_174998Xcomment_loader_174998X0X16" title="2 / 5" class="s2" rel="nofollow"></a><a id="gdsrX174998X1X0XcXcomment_rater_174998Xcomment_loader_174998X0X16" title="1 / 5" class="s1" rel="nofollow"></a></div></div></div></div><div id="comment_loader_174998" style="display: none; width: 80px " class="ratingloadercomment"><div class="loader flower " style="height: 16px"><div class="loaderinner">please wait...</div></div></div></div><div class="ratingtext "><div id="gdr_text_c174998">Rating: 0.0/<strong>5</strong> (0 votes cast)</div></div></div><div style="display: none">VA:F [1.9.13_1145]</div><div class="thumblock "><div id="gdsr_thumb_174998_c_up" class="gdt-size-20 gdthumb gdup"><a id="gdsrX174998XupXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_174998_c_loader_up" style="display: none; width: 20px " class="ratingloader loadup"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div id="gdsr_thumb_174998_c_dw" class="gdt-size-20 gdthumb gddw"><a id="gdsrX174998XdwXcX0X20XY" class="gdt-starrating" rel="nofollow"></a></div><div id="gdsr_thumb_174998_c_loader_dw" style="display: none; width: 20px " class="ratingloader loaddw"><div class="loader thumb flower" style="width: 20px; height: 20px;"></div></div><div class="ratingtext "><div id="gdsr_thumb_text_174998_c" class="gdt-size-20 gdthumbtext">Rating: <strong>0</strong> (from 0 votes)</div></div><div class="raterclear"></div></div>
+		<div class="reply">
+		<a class='comment-reply-link' href='/244.html?replytocom=174998#respond' onclick='return addComment.moveForm("div-comment-174998", "174998", "respond", "244")'>Reply</a>		</div>
+				</div>
+		</li>
+</ol>
+
+<div class="comment-nav">
+<div class="alignleft"></div>
+<div class="alignright"></div>
+</div>
+
+
+
+
+<div id="comment-form">
+
+<div id="respond" >
+
+<h3 id="comments-respond">Leave A Reply</h3>
+
+<div class="cancel-comment-reply">
+<a rel="nofollow" id="cancel-comment-reply-link" href="/244.html#respond" style="display:none;">Click here to cancel reply.</a></div>
+
+
+<form action="http://www.elecfreaks.com/wp-comments-post.php" method="post" id="commentform">
+
+<label for="author">Name <small>(required)</small></label>
+<input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+
+<label for="email">Mail <small>(required)</small></label>
+<input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+
+<label for="url">Website</label>
+<input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+
+
+
+<textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea><br />
+
+<input name="submit" type="submit" id="commentSubmit" tabindex="5" value="Submit" />
+<input type='hidden' name='comment_post_ID' value='244' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="d7a39ab29d" /></p><p><input type="hidden" id="comment_reply_ID" name="comment_reply_ID" value="0" /><input type="hidden" id="comment_reply_dp" name="comment_reply_dp" value="0" /></p><div id="cancel_reply" style="display:none;"><a href="javascript:void(0)" onclick="movecfm(null,0,1,null);" style="color:red;">Click to cancel reply</a></div><p><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" style="width: auto;" /><label for="comment_mail_notify" style="display: inline;">Notify me of follow-up comments via e-mail</label></p><script type="text/javascript">
+/* <![CDATA[ */
+var commentformid = "commentform";
+var USERINFO = false;
+var atreply = "none";
+/* ]]> */
+</script>
+<script type="text/javascript" src="http://www.elecfreaks.com/wp-content/plugins/wordpress-thread-comment/wp-thread-comment.js.php?jsver=common"></script>
+
+</form>
+
+
+</div>
+</div>
+</div>
+  
+                
+	</div>
+	<!-- END post-content -->
+            
+<div id="sidebar">              
+	<div class="sidebar-box clearfix"><h4><a href="http://www.asiatranslate.net/website-translation.html" rel="follow" target="_blank"></a></h4><span class="sidebar-triangle-left"></span><span class="sidebar-triangle-right"></span><!-- GTranslate: http://edo.webmaster.am/gtranslate -->
+<a href="javascript:doGTranslate('en|en')" title="English" class="gflag" style="background-position:-0px -0px;"><img src="http://www.elecfreaks.com/wp-content/plugins/gtranslate/blank.png" height="16" width="16" alt="English" /></a><a href="javascript:doGTranslate('en|fr')" title="French" class="gflag" style="background-position:-200px -100px;"><img src="http://www.elecfreaks.com/wp-content/plugins/gtranslate/blank.png" height="16" width="16" alt="French" /></a><a href="javascript:doGTranslate('en|de')" title="German" class="gflag" style="background-position:-300px -100px;"><img src="http://www.elecfreaks.com/wp-content/plugins/gtranslate/blank.png" height="16" width="16" alt="German" /></a><a href="javascript:doGTranslate('en|it')" title="Italian" class="gflag" style="background-position:-600px -100px;"><img src="http://www.elecfreaks.com/wp-content/plugins/gtranslate/blank.png" height="16" width="16" alt="Italian" /></a><a href="javascript:doGTranslate('en|pt')" title="Portuguese" class="gflag" style="background-position:-300px -200px;"><img src="http://www.elecfreaks.com/wp-content/plugins/gtranslate/blank.png" height="16" width="16" alt="Portuguese" /></a><a href="javascript:doGTranslate('en|ru')" title="Russian" class="gflag" style="background-position:-500px -200px;"><img src="http://www.elecfreaks.com/wp-content/plugins/gtranslate/blank.png" height="16" width="16" alt="Russian" /></a><a href="javascript:doGTranslate('en|es')" title="Spanish" class="gflag" style="background-position:-600px -200px;"><img src="http://www.elecfreaks.com/wp-content/plugins/gtranslate/blank.png" height="16" width="16" alt="Spanish" /></a><br /><select onchange="doGTranslate(this);"><option value="">Select Language</option><option value="en|af">Afrikaans</option><option value="en|sq">Albanian</option><option value="en|ar">Arabic</option><option value="en|hy">Armenian</option><option value="en|az">Azerbaijani</option><option value="en|eu">Basque</option><option value="en|be">Belarusian</option><option value="en|bg">Bulgarian</option><option value="en|ca">Catalan</option><option value="en|zh-CN">Chinese (Simplified)</option><option value="en|zh-TW">Chinese (Traditional)</option><option value="en|hr">Croatian</option><option value="en|cs">Czech</option><option value="en|da">Danish</option><option value="en|nl">Dutch</option><option value="en|en">English</option><option value="en|et">Estonian</option><option value="en|tl">Filipino</option><option value="en|fi">Finnish</option><option value="en|fr">French</option><option value="en|gl">Galician</option><option value="en|ka">Georgian</option><option value="en|de">German</option><option value="en|el">Greek</option><option value="en|ht">Haitian Creole</option><option value="en|iw">Hebrew</option><option value="en|hi">Hindi</option><option value="en|hu">Hungarian</option><option value="en|is">Icelandic</option><option value="en|id">Indonesian</option><option value="en|ga">Irish</option><option value="en|it">Italian</option><option value="en|ja">Japanese</option><option value="en|ko">Korean</option><option value="en|lv">Latvian</option><option value="en|lt">Lithuanian</option><option value="en|mk">Macedonian</option><option value="en|ms">Malay</option><option value="en|mt">Maltese</option><option value="en|no">Norwegian</option><option value="en|fa">Persian</option><option value="en|pl">Polish</option><option value="en|pt">Portuguese</option><option value="en|ro">Romanian</option><option value="en|ru">Russian</option><option value="en|sr">Serbian</option><option value="en|sk">Slovak</option><option value="en|sl">Slovenian</option><option value="en|es">Spanish</option><option value="en|sw">Swahili</option><option value="en|sv">Swedish</option><option value="en|th">Thai</option><option value="en|tr">Turkish</option><option value="en|uk">Ukrainian</option><option value="en|ur">Urdu</option><option value="en|vi">Vietnamese</option><option value="en|cy">Welsh</option><option value="en|yi">Yiddish</option></select>
+
+<script type="text/javascript">
+//<![CDATA[
+if(jQuery.cookie('glang') && jQuery.cookie('glang') != 'en') jQuery(function($){$('body').translate('en', $.cookie('glang'), {toggle:true, not:'.notranslate'});});
+function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;var lang=lang_pair.split('|')[1];jQuery.cookie('glang', lang, {path: '/'});jQuery(function($){$('body').translate('en', lang, {toggle:true, not:'.notranslate'});});}
+//]]>
+</script>
+</div><noscript>JavaScript is required to use this <a href="http://edo.webmaster.am/gtranslate">website translator</a>, <a href="http://edo.webmaster.am/gtranslate">site translator</a>, <a href="http://edo.webmaster.am/gtranslate">automatic translation</a>, <a href="http://edo.webmaster.am/gtranslate">free translation</a>. Buy <a href="http://artmaestro.com/">oil paintings</a> on ArtMaestro.</noscript><div class="sidebar-box clearfix"><form method="get" id="searchbar" action="http://www.elecfreaks.com/">
+<input type="text" size="16" name="s" id="search" value="Search" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;" />
+<input type="submit" value="search" id="searchsubmit" />
+</form></div><div class="sidebar-box clearfix"><h4>Categories</h4><span class="sidebar-triangle-left"></span><span class="sidebar-triangle-right"></span>		<ul>
+	<li class="cat-item cat-item-347"><a href="http://www.elecfreaks.com/category/3d-printer" title="View all posts filed under 3D Printer">3D Printer</a> (5)
+</li>
+	<li class="cat-item cat-item-495"><a href="http://www.elecfreaks.com/category/3th-anniversary" title="View all posts filed under 3th anniversary">3th anniversary</a> (11)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://www.elecfreaks.com/category/ef" title="ElecFreaks Blog.">All post of ElecFreaks</a> (218)
+</li>
+	<li class="cat-item cat-item-18"><a href="http://www.elecfreaks.com/category/our-plan" title="Our latest plan - We appreciate you leave us your ideas or any suggestions.">Announcement</a> (22)
+</li>
+	<li class="cat-item cat-item-329"><a href="http://www.elecfreaks.com/category/bee" title="View all posts filed under Bluetooth Bee">Bluetooth Bee</a> (13)
+</li>
+	<li class="cat-item cat-item-486"><a href="http://www.elecfreaks.com/category/bridge-board" title="View all posts filed under Bridge Board">Bridge Board</a> (2)
+</li>
+	<li class="cat-item cat-item-49"><a href="http://www.elecfreaks.com/category/featured" title="View all posts filed under Featured Post">Featured Post</a> (12)
+</li>
+	<li class="cat-item cat-item-178"><a href="http://www.elecfreaks.com/category/flower" title="View all posts filed under Flowerpad Protoboard">Flowerpad Protoboard</a> (15)
+</li>
+	<li class="cat-item cat-item-331"><a href="http://www.elecfreaks.com/category/gprsgpsrf-wireless" title="View all posts filed under GPRS/GPS/RF Wireless">GPRS/GPS/RF Wireless</a> (15)
+</li>
+	<li class="cat-item cat-item-121"><a href="http://www.elecfreaks.com/category/hack" title="View all posts filed under Hack Hack">Hack Hack</a> (14)
+</li>
+	<li class="cat-item cat-item-114"><a href="http://www.elecfreaks.com/category/new-product-2" title="View all posts filed under New Product">New Product</a> (45)
+</li>
+	<li class="cat-item cat-item-501"><a href="http://www.elecfreaks.com/category/news" title="View all posts filed under News">News</a> (6)
+</li>
+	<li class="cat-item cat-item-270"><a href="http://www.elecfreaks.com/category/octopus-brick" title="View all posts filed under Octopus Brick">Octopus Brick</a> (8)
+</li>
+	<li class="cat-item cat-item-108"><a href="http://www.elecfreaks.com/category/robot" title="View all posts filed under Robot">Robot</a> (9)
+</li>
+	<li class="cat-item cat-item-554"><a href="http://www.elecfreaks.com/category/team-building" title="View all posts filed under team building">team building</a> (1)
+</li>
+	<li class="cat-item cat-item-330"><a href="http://www.elecfreaks.com/category/tft01-lcd" title="View all posts filed under TFT01 LCD">TFT01 LCD</a> (9)
+</li>
+	<li class="cat-item cat-item-467"><a href="http://www.elecfreaks.com/category/tutorials" title="View all posts filed under Video Tutorials">Video Tutorials</a> (5)
+</li>
+		</ul>
+</div>		<div class="sidebar-box clearfix">		<h4>Recent Posts</h4><span class="sidebar-triangle-left"></span><span class="sidebar-triangle-right"></span>		<ul>
+				<li><a href="http://www.elecfreaks.com/5390.html" title="Bluetooth Modem Video Tutorials">Bluetooth Modem Video Tutorials</a></li>
+				<li><a href="http://www.elecfreaks.com/5369.html" title="New Product Post 62 &#8211; KEYPAD">New Product Post 62 &#8211; KEYPAD</a></li>
+				<li><a href="http://www.elecfreaks.com/5363.html" title="Bluetooth Bee Video Tutorials">Bluetooth Bee Video Tutorials</a></li>
+				<li><a href="http://www.elecfreaks.com/5342.html" title="NX-bridge MYSQL Access">NX-bridge MYSQL Access</a></li>
+				<li><a href="http://www.elecfreaks.com/5293.html" title="New Product Post- Octopus Rain/Steam Sensor">New Product Post- Octopus Rain/Steam Sensor</a></li>
+				<li><a href="http://www.elecfreaks.com/5282.html" title="3D-printable machine for PCB manufacture">3D-printable machine for PCB manufacture</a></li>
+				<li><a href="http://www.elecfreaks.com/5275.html" title="New Product Post 61-Octopus MAX6675 Module">New Product Post 61-Octopus MAX6675 Module</a></li>
+				<li><a href="http://www.elecfreaks.com/5237.html" title="Bluetooth Shield User Guide">Bluetooth Shield User Guide</a></li>
+				<li><a href="http://www.elecfreaks.com/5214.html" title="Spanish UPCT Donation">Spanish UPCT Donation</a></li>
+				<li><a href="http://www.elecfreaks.com/5202.html" title="New product post 60 &#8211; TFT LCD: 1.8 &#8211; 2.8">New product post 60 &#8211; TFT LCD: 1.8 &#8211; 2.8</a></li>
+				<li><a href="http://www.elecfreaks.com/5164.html" title="EFCom Pro GPRS/GSM Module User Guide">EFCom Pro GPRS/GSM Module User Guide</a></li>
+				<li><a href="http://www.elecfreaks.com/5158.html" title="New Product 59 &#8211; Pressure Sensor MPX2100">New Product 59 &#8211; Pressure Sensor MPX2100</a></li>
+				<li><a href="http://www.elecfreaks.com/5139.html" title="New product Post 58 &#8211; Dust Sensor DSM501A">New product Post 58 &#8211; Dust Sensor DSM501A</a></li>
+				<li><a href="http://www.elecfreaks.com/5113.html" title="GLX international drifting">GLX international drifting</a></li>
+				<li><a href="http://www.elecfreaks.com/5098.html" title="New product post 57- Infrared Distance Sensor">New product post 57- Infrared Distance Sensor</a></li>
+				</ul>
+		</div><div class="sidebar-box clearfix"><h4>Friendly Links</h4><span class="sidebar-triangle-left"></span><span class="sidebar-triangle-right"></span>			<div class="textwidget"><p><a href="http://mattters.com/" target="_blank">Mattters</a><br />
+<a href="http://blog.spitzenpfeil.org/wordpress/" target="_blank">My 2µF</a><br />
+<a href="http://lucacarabetta.it/blog/" target="_blank">LucaCarabetta.it</a></p>
+</div>
+		</div></div>
+<!-- END sidebar --><div class="clear"></div>
+
+</div>
+<!-- END main -->
+</div>
+<!-- END wrap -->
+
+<div id="copyright">
+
+</div>
+<!-- END copyright -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308466-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- WP Footer -->
+<div id="follow" class="right"><ul class="tab size24 down"><li class="follow"><img src="http://www.elecfreaks.com/wp-content/plugins/share-and-follow/images/blank.gif"  alt="Follow:"/><span>Follow:</span></li><li class="iconOnly"><a rel="nofollow me" target="_blank"  style="display:block;background: transparent url(http://www.elecfreaks.com/wp-content/plugins/share-and-follow/default/24/facebook.png) no-repeat top left;height:24px;width:24px;" class="facebook" href="http://www.facebook.com/pages/ElecFreaks/157877367606218" title="Become our Facebook friend"><span class="head">Become our Facebook friend</span></a></li><li class="iconOnly"><a rel="nofollow me" target="_blank"  style="display:block;background: transparent url(http://www.elecfreaks.com/wp-content/plugins/share-and-follow/default/24/flickr.png) no-repeat top left;height:24px;width:24px;" class="flickr" href="http://www.flickr.com/photos/60977090@N05" title="See our photos"><span class="head">See our photos</span></a></li><li class="iconOnly"><a rel="nofollow me" target="_blank"  style="display:block;background: transparent url(http://www.elecfreaks.com/wp-content/plugins/share-and-follow/default/24/rss.png) no-repeat top left;height:24px;width:24px;" class="rss" href="http://www.elecfreaks.com/feed" title="RSS"><span class="head">RSS</span></a></li><li class="iconOnly"><a rel="nofollow me" target="_blank"  style="display:block;background: transparent url(http://www.elecfreaks.com/wp-content/plugins/share-and-follow/default/24/twitter.png) no-repeat top left;height:24px;width:24px;" class="twitter" href="http://twitter.com/elecfreaks" title="Tweet with us"><span class="head">Tweet with us</span></a></li></ul></div>
+<!-- AddThis Button Begin -->
+<script type="text/javascript">var addthis_product = 'wpp-263';
+var addthis_config = {"data_track_clickback":false,"data_track_addressbar":false,"ui_language":"en"};if (typeof(addthis_share) == "undefined"){ addthis_share = [];}</script><script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dff8e24204bcfe6"></script>
+
+
+
+</body>
+</html>
+<div id="credits" style="text-align:center"><img src="http://www.elecfreaks.com/store/images/foot.jpg" alt="" width="344" height="31" /><br> Powered by <a href="http://www.elecfreaks.com/">ElecFreaks</a>
+
+
