@@ -1,0 +1,121 @@
+﻿'******************************************************************************
+'TM1637
+'
+'Modlul pro práci s 4 místným LED zobrazovačem.
+'
+'Níže uvedené symboly je potřeba definovat v hlavní části kódu:
+
+;symbol clk = C.2 'pin s hodinami
+;symbol dio = C.1 'I/O pin
+;symbol pinDio = pinC.1
+
+;symbol ledData = b0		'data, která budou přesunuta do zobrazovače
+;symbol charIndex = b1	'index znaku, který je momentálně přesouván do zobrazovače
+;symbol bitIndex = b2		'index čítače jednotlivých bitů
+;symbol numIndex = b3		'index čítače jednotlivých číslic
+;symbol bright = b10		'proměnná pro nastavení jasu
+;symbol isColon = b11		'indikuje, že se bude (1) / nebude (0) zobrazovat dvojtečka za druhou číslicí
+;symbol value = w2			'zobrazované 4 místné číslo
+;symbol divTmp = w3		'dočasná proměnná pro děličku deseti
+;symbol valueTmp = w4		'dočasná proměnná pro zobrazení
+
+;pullup %1100 'nohodit pullup na C.1 a C.2
+'******************************************************************************
+
+'Rozložíme 4-místné číslo na jednotlivé číslice, 
+'získáme jejich reprezentaci pro LED a pošleme je do zobrazovač
+ShowValue:
+	gosub I2CStart
+
+	ledData = $c0	'adresa první číslice (MSB)
+	gosub I2CSendData
+
+	divTmp = 1000
+	valueTmp = value
+	
+	for numIndex = 1 to 4
+		charIndex = valueTmp/divTmp
+		gosub DecTo7seg
+
+		'Doplníme dvojtečku?
+		if numIndex = 2 and isCOlon = 1 then
+			ledData = ledData | $80
+		endif
+	
+		gosub I2CSendData
+		
+		valueTmp = valueTmp//divTmp
+		divTmp = divTmp/10
+	next
+
+	gosub I2CStop
+return
+
+'Nastavení jasu 
+'0=min(tma); 7=max
+SetBright:
+	gosub I2CStart
+	ledData = $87 + bright
+	gosub I2CSendData
+	gosub I2CStop
+return
+		  
+'Spustit I2C
+I2CStart:
+	high clk
+	high dio
+	low dio
+return
+    
+'Vypnout I2C
+I2CStop:
+	low clk
+	low dio
+	high clk
+	high dio
+return
+    
+'Odeslání byte uloženého v registru b0 (Octet), bit po bitu do registru zobrazovače
+I2CSendData:
+	for bitIndex=1 to 8 'odeslání bytu po jednotlivých bitech
+		low clk
+
+		if bit0=1 then 
+	  		high dio 
+		else 
+	  		low dio 
+		endif 'polohování DIO
+		
+		ledData = ledData/2 'Posun vlevo
+		
+		high clk
+	next
+
+	'Potvrdíme příjem (ACK)
+	low clk
+	do:loop while pinDio=1
+	high clk
+	low clk
+
+return
+    
+'Získání grafické podoby znaku
+'
+'Hodnoty jednotlivých segmentů (dvojtečka, tj. 128 je pouze u 2.číslice zleva):
+'
+'          ### 1###
+'         /      #
+'        32     2
+'       /      #   O
+'      ###64###   128
+'     #      /   O
+'    16     4
+'   #      /
+'  ### 8###
+'
+'Příklad: Dvojka (#) je složena ze segmentů 1,2,64,16,8, tj. 1+2+64+16+8 = 91(DEC) = $5b (HEX) = 01011011 (BIN)
+
+DecTo7seg:
+	'                  0   1   2   3    4   5   6    7   8    9
+	lookup charIndex,($3f,$06,$5b,$4f,$66,$6d,$7d,$07,$7f,$6f), ledData 'číslice 0-9
+return

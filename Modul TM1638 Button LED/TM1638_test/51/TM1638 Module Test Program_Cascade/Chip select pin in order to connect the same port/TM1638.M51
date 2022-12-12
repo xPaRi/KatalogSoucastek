@@ -1,0 +1,310 @@
+BL51 BANKED LINKER/LOCATER V5.12                                                        05/31/2010  00:08:30  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V5.12, INVOKED BY:
+D:\KEIL\C51\BIN\BL51.EXE main.obj TO TM1638 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  main.obj (MAIN)
+  D:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  TM1638 (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0030H     UNIT         ?DT?MAIN
+            DATA    0038H     0006H     UNIT         _DATA_GROUP_
+            DATA    003EH     0001H     UNIT         ?DT?_WRITE_ONELED?MAIN
+            IDATA   003FH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008DH     UNIT         ?PR?MAIN?MAIN
+            CODE    0090H     006DH     UNIT         ?PR?_READ_KEY?MAIN
+            CODE    00FDH     003CH     UNIT         ?PR?_WRITE_DATA?MAIN
+            CODE    0139H     003CH     UNIT         ?PR?_INIT_TM1638?MAIN
+            CODE    0175H     0038H     UNIT         ?PR?_WRITE_ALLLED?MAIN
+            CODE    01ADH     002FH     UNIT         ?PR?PRESENCE?MAIN
+            CODE    01DCH     0021H     UNIT         ?PR?_WRITE_COM?MAIN
+            CODE    01FDH     001BH     UNIT         ?PR?_WRITE_ONELED?MAIN
+            CODE    0218H     0019H     UNIT         ?PR?_TM1638_WRITE?MAIN
+            CODE    0231H     0018H     UNIT         ?PR?TM1638_READ?MAIN
+            CODE    0249H     0010H     UNIT         ?CO?MAIN
+            CODE    0259H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   TM1638 (MAIN)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?MAIN
+
+?PR?MAIN?MAIN                  0038H    0002H
+  +--> ?PR?PRESENCE?MAIN
+  +--> ?PR?_INIT_TM1638?MAIN
+  +--> ?PR?_WRITE_DATA?MAIN
+  +--> ?PR?_READ_KEY?MAIN
+  +--> ?PR?_WRITE_ALLLED?MAIN
+
+BL51 BANKED LINKER/LOCATER V5.12                                                      05/31/2010  00:08:30  PAGE 2
+
+
+?PR?PRESENCE?MAIN              -----    -----
+  +--> ?PR?_TM1638_WRITE?MAIN
+  +--> ?PR?TM1638_READ?MAIN
+
+?PR?_INIT_TM1638?MAIN          -----    -----
+  +--> ?PR?_WRITE_COM?MAIN
+  +--> ?PR?_TM1638_WRITE?MAIN
+
+?PR?_WRITE_COM?MAIN            -----    -----
+  +--> ?PR?_TM1638_WRITE?MAIN
+
+?PR?_WRITE_DATA?MAIN           -----    -----
+  +--> ?CO?MAIN
+  +--> ?PR?_WRITE_COM?MAIN
+  +--> ?PR?_TM1638_WRITE?MAIN
+
+?PR?_READ_KEY?MAIN             003AH    0004H
+  +--> ?PR?_TM1638_WRITE?MAIN
+  +--> ?PR?TM1638_READ?MAIN
+
+?PR?_WRITE_ALLLED?MAIN         003AH    0002H
+  +--> ?PR?_WRITE_DATA?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  TM1638 (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  C:0090H         PUBLIC        _Read_key
+  C:0003H         PUBLIC        main
+  C:01DCH         PUBLIC        _Write_COM
+  C:0249H         PUBLIC        tab
+  C:0218H         PUBLIC        _TM1638_Write
+  D:0008H         PUBLIC        num
+  C:0231H         PUBLIC        TM1638_Read
+  C:01ADH         PUBLIC        presence
+  B:0080H.6       PUBLIC        CLK
+  B:0080H.7       PUBLIC        DIO
+  C:0175H         PUBLIC        _Write_allLED
+  C:01FDH         PUBLIC        _Write_oneLED
+  C:0104H         PUBLIC        _Write_DATA
+  C:0139H         PUBLIC        _init_TM1638
+  -------         PROC          _TM1638_WRITE
+  D:0007H         SYMBOL        DATA
+  -------         DO            
+  D:0006H         SYMBOL        i
+  -------         ENDDO         
+  C:0218H         LINE#         24
+  C:0218H         LINE#         25
+  C:0218H         LINE#         27
+  C:021AH         LINE#         28
+  C:021AH         LINE#         29
+BL51 BANKED LINKER/LOCATER V5.12                                                      05/31/2010  00:08:30  PAGE 3
+
+
+  C:021CH         LINE#         30
+  C:0220H         LINE#         31
+  C:0224H         LINE#         33
+  C:0226H         LINE#         34
+  C:022AH         LINE#         35
+  C:022CH         LINE#         36
+  C:0230H         LINE#         37
+  -------         ENDPROC       _TM1638_WRITE
+  -------         PROC          TM1638_READ
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0007H         SYMBOL        temp
+  -------         ENDDO         
+  C:0231H         LINE#         38
+  C:0231H         LINE#         39
+  C:0231H         LINE#         41
+  C:0233H         LINE#         42
+  C:0235H         LINE#         43
+  C:0236H         LINE#         44
+  C:0236H         LINE#         45
+  C:023AH         LINE#         46
+  C:023CH         LINE#         47
+  C:023FH         LINE#         48
+  C:0242H         LINE#         49
+  C:0244H         LINE#         50
+  C:0248H         LINE#         51
+  C:0248H         LINE#         52
+  -------         ENDPROC       TM1638_READ
+  -------         PROC          _WRITE_COM
+  D:0007H         SYMBOL        cmd
+  D:0005H         SYMBOL        STB_CS
+  C:01DCH         LINE#         53
+  C:01DCH         LINE#         54
+  C:01DCH         LINE#         55
+  C:01EAH         LINE#         56
+  C:01EDH         LINE#         57
+  C:01FCH         LINE#         58
+  -------         ENDPROC       _WRITE_COM
+  -------         PROC          _READ_KEY
+  D:0005H         SYMBOL        STB_CS
+  -------         DO            
+  D:003AH         SYMBOL        c
+  D:0003H         SYMBOL        i
+  D:0004H         SYMBOL        key_value
+  -------         ENDDO         
+  C:0090H         LINE#         59
+  C:0092H         LINE#         60
+  C:0092H         LINE#         61
+  C:0094H         LINE#         62
+  C:00A2H         LINE#         63
+  C:00A7H         LINE#         64
+  C:00A9H         LINE#         65
+  C:00B6H         LINE#         66
+  C:00C5H         LINE#         67
+  C:00C7H         LINE#         68
+  C:00DCH         LINE#         69
+  C:00DEH         LINE#         70
+BL51 BANKED LINKER/LOCATER V5.12                                                      05/31/2010  00:08:30  PAGE 4
+
+
+  C:00F6H         LINE#         71
+  C:00FAH         LINE#         72
+  C:00FCH         LINE#         73
+  -------         ENDPROC       _READ_KEY
+  -------         PROC          L?0090
+  -------         ENDPROC       L?0090
+  -------         PROC          _WRITE_DATA
+  D:0004H         SYMBOL        add
+  D:0002H         SYMBOL        DATA
+  D:0003H         SYMBOL        STB_CS
+  C:0104H         LINE#         74
+  C:0108H         LINE#         75
+  C:0108H         LINE#         76
+  C:010FH         LINE#         77
+  C:011DH         LINE#         78
+  C:0124H         LINE#         79
+  C:0129H         LINE#         80
+  C:0138H         LINE#         81
+  -------         ENDPROC       _WRITE_DATA
+  -------         PROC          _WRITE_ONELED
+  D:003EH         SYMBOL        num
+  D:0005H         SYMBOL        flag
+  D:0003H         SYMBOL        STB_CS
+  C:01FDH         LINE#         91
+  C:01FFH         LINE#         92
+  C:01FFH         LINE#         93
+  C:0202H         LINE#         94
+  C:020CH         LINE#         96
+  C:0217H         LINE#         97
+  -------         ENDPROC       _WRITE_ONELED
+  -------         PROC          _WRITE_ALLLED
+  D:003AH         SYMBOL        LED_flag
+  D:003BH         SYMBOL        STB_CS
+  -------         DO            
+  D:0001H         SYMBOL        i
+  -------         ENDDO         
+  C:0175H         LINE#         98
+  C:0179H         LINE#         99
+  C:0179H         LINE#         101
+  C:017BH         LINE#         102
+  C:017BH         LINE#         103
+  C:0191H         LINE#         104
+  C:019CH         LINE#         106
+  C:01A8H         LINE#         107
+  C:01ACH         LINE#         108
+  -------         ENDPROC       _WRITE_ALLLED
+  -------         PROC          _INIT_TM1638
+  D:0004H         SYMBOL        STB_CS
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0139H         LINE#         109
+  C:013BH         LINE#         110
+  C:013BH         LINE#         112
+  C:0142H         LINE#         113
+  C:0147H         LINE#         114
+  C:0155H         LINE#         115
+BL51 BANKED LINKER/LOCATER V5.12                                                      05/31/2010  00:08:30  PAGE 5
+
+
+  C:015AH         LINE#         116
+  C:015CH         LINE#         117
+  C:0165H         LINE#         118
+  C:0174H         LINE#         119
+  -------         ENDPROC       _INIT_TM1638
+  -------         PROC          PRESENCE
+  -------         DO            
+  D:0007H         SYMBOL        c
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:01ADH         LINE#         7
+  C:01ADH         LINE#         8
+  C:01ADH         LINE#         10
+  C:01AFH         LINE#         11
+  C:01AFH         LINE#         12
+  C:01BDH         LINE#         13
+  C:01C2H         LINE#         14
+  C:01C5H         LINE#         15
+  C:01D2H         LINE#         16
+  C:01D6H         LINE#         17
+  C:01D6H         LINE#         18
+  C:01D8H         LINE#         19
+  C:01DBH         LINE#         20
+  -------         ENDPROC       PRESENCE
+  -------         PROC          MAIN
+  -------         DO            
+  D:0001H         SYMBOL        i
+  D:0038H         SYMBOL        j
+  D:0039H         SYMBOL        STB_num
+  D:0001H         SYMBOL        key_num
+  -------         ENDDO         
+  C:0003H         LINE#         21
+  C:0003H         LINE#         22
+  C:0003H         LINE#         24
+  C:0008H         LINE#         25
+  C:0012H         LINE#         26
+  C:0012H         LINE#         27
+  C:0017H         LINE#         28
+  C:0019H         LINE#         29
+  C:0026H         LINE#         30
+  C:002AH         LINE#         31
+  C:002AH         LINE#         32
+  C:002AH         LINE#         33
+  C:0034H         LINE#         34
+  C:0034H         LINE#         35
+  C:003BH         LINE#         36
+  C:0041H         LINE#         37
+  C:0041H         LINE#         38
+  C:004CH         LINE#         39
+  C:0055H         LINE#         40
+  C:0065H         LINE#         41
+  C:0067H         LINE#         42
+  C:0079H         LINE#         43
+  C:008CH         LINE#         44
+  C:008CH         LINE#         45
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+BL51 BANKED LINKER/LOCATER V5.12                                                      05/31/2010  00:08:30  PAGE 6
+
+
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_WRITE_ONELED?MAIN
+
+Program Size: data=64.0 xdata=0 code=613
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

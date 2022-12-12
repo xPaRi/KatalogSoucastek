@@ -1,0 +1,872 @@
+
+main.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000004ea  00000000  00000000  00000094  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  000004ea  0000057e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000030  00800060  00800060  0000057e  2**0
+                  ALLOC
+  3 .noinit       00000000  00800090  00800090  0000057e  2**0
+                  CONTENTS
+  4 .eeprom       00000000  00810000  00810000  0000057e  2**0
+                  CONTENTS
+  5 .stab         0000036c  00000000  00000000  00000580  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  6 .stabstr      00000084  00000000  00000000  000008ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_aranges 00000014  00000000  00000000  00000970  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_pubnames 000000e1  00000000  00000000  00000984  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_info   000006e3  00000000  00000000  00000a65  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_abbrev 00000180  00000000  00000000  00001148  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_line   000003c0  00000000  00000000  000012c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_str    00000197  00000000  00000000  00001688  2**0
+                  CONTENTS, READONLY, DEBUGGING
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 35 00 	jmp	0x6a <__init>
+   4:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+   8:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+   c:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  10:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  14:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  18:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  1c:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  20:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  24:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  28:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  2c:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  30:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  34:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  38:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  3c:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  40:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  44:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  48:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  4c:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+  50:	0c 94 50 00 	jmp	0xa0 <__bad_interrupt>
+
+00000054 <STB_SEL>:
+  54:	ef df fb f7 fe fd                                   ......
+
+0000005a <tab>:
+  5a:	3f 06 5b 4f 66 6d 7d 07 7f 6f 77 7c 39 5e 79 71     ?.[Ofm}..ow|9^yq
+
+0000006a <__init>:
+  6a:	11 24       	eor	r1, r1
+  6c:	1f be       	out	0x3f, r1	; 63
+  6e:	cf e5       	ldi	r28, 0x5F	; 95
+  70:	d4 e0       	ldi	r29, 0x04	; 4
+  72:	de bf       	out	0x3e, r29	; 62
+  74:	cd bf       	out	0x3d, r28	; 61
+
+00000076 <__do_copy_data>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	a0 e6       	ldi	r26, 0x60	; 96
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	ea ee       	ldi	r30, 0xEA	; 234
+  7e:	f4 e0       	ldi	r31, 0x04	; 4
+  80:	02 c0       	rjmp	.+4      	; 0x86 <.do_copy_data_start>
+
+00000082 <.do_copy_data_loop>:
+  82:	05 90       	lpm	r0, Z+
+  84:	0d 92       	st	X+, r0
+
+00000086 <.do_copy_data_start>:
+  86:	a0 36       	cpi	r26, 0x60	; 96
+  88:	b1 07       	cpc	r27, r17
+  8a:	d9 f7       	brne	.-10     	; 0x82 <.do_copy_data_loop>
+
+0000008c <__do_clear_bss>:
+  8c:	10 e0       	ldi	r17, 0x00	; 0
+  8e:	a0 e6       	ldi	r26, 0x60	; 96
+  90:	b0 e0       	ldi	r27, 0x00	; 0
+  92:	01 c0       	rjmp	.+2      	; 0x96 <.do_clear_bss_start>
+
+00000094 <.do_clear_bss_loop>:
+  94:	1d 92       	st	X+, r1
+
+00000096 <.do_clear_bss_start>:
+  96:	a0 39       	cpi	r26, 0x90	; 144
+  98:	b1 07       	cpc	r27, r17
+  9a:	e1 f7       	brne	.-8      	; 0x94 <.do_clear_bss_loop>
+  9c:	0c 94 09 02 	jmp	0x412 <main>
+
+000000a0 <__bad_interrupt>:
+  a0:	0c 94 00 00 	jmp	0x0 <__vectors>
+
+000000a4 <TM1638_Write>:
+unsigned char STB_SEL[] PROGMEM={0xEF, 0xDF, 0XFB, 0XF7, 0XFE, 0XFD};
+								// PD4=0 PD5=0 PD2=0 PD3=0 PD0=0 PD1=0
+//STB片选脚，要求片选脚在同一个PORT口，自行根据硬件修改数组内容，如果STB引脚顺序连接则可以使用更简单的方法
+void TM1638_Write(unsigned char	DATA)			//写数据函数
+{
+  a4:	98 2f       	mov	r25, r24
+	unsigned char i;
+	DIO_OUT;
+  a6:	8f 9a       	sbi	0x11, 7	; 17
+  a8:	31 e0       	ldi	r19, 0x01	; 1
+  aa:	27 e0       	ldi	r18, 0x07	; 7
+	for(i=0;i<8;i++)
+	{
+		CLK_low;
+  ac:	96 98       	cbi	0x12, 6	; 18
+		if(DATA&0X01)
+  ae:	90 ff       	sbrs	r25, 0
+  b0:	02 c0       	rjmp	.+4      	; 0xb6 <TM1638_Write+0x12>
+			DIO_high;
+  b2:	97 9a       	sbi	0x12, 7	; 18
+  b4:	01 c0       	rjmp	.+2      	; 0xb8 <TM1638_Write+0x14>
+		else
+			DIO_low;
+  b6:	97 98       	cbi	0x12, 7	; 18
+		DATA>>=1;
+  b8:	96 95       	lsr	r25
+		CLK_high;
+  ba:	96 9a       	sbi	0x12, 6	; 18
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+  bc:	83 2f       	mov	r24, r19
+  be:	8a 95       	dec	r24
+  c0:	f1 f7       	brne	.-4      	; 0xbe <TM1638_Write+0x1a>
+void TM1638_Write(unsigned char	DATA)			//写数据函数
+{
+	unsigned char i;
+	DIO_OUT;
+	for(i=0;i<8;i++)
+  c2:	21 50       	subi	r18, 0x01	; 1
+  c4:	27 ff       	sbrs	r18, 7
+  c6:	f2 cf       	rjmp	.-28     	; 0xac <TM1638_Write+0x8>
+  c8:	08 95       	ret
+
+000000ca <TM1638_Read>:
+	{
+		CLK_low;
+		if(DATA&0X01)
+			DIO_high;
+		else
+			DIO_low;
+		DATA>>=1;
+		CLK_high;
+		_delay_us(1);
+	}
+}
+unsigned char TM1638_Read(void)					//读数据函数
+{
+	unsigned char i;
+	unsigned char temp=0;
+  ca:	20 e0       	ldi	r18, 0x00	; 0
+	DIO_IN;
+  cc:	8f 98       	cbi	0x11, 7	; 17
+{
+	uint8_t __ticks;
+	double __tmp = ((F_CPU) / 3e6) * __us;
+	if (__tmp < 1.0)
+		__ticks = 1;
+  ce:	81 e0       	ldi	r24, 0x01	; 1
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+  d0:	98 2f       	mov	r25, r24
+  d2:	9a 95       	dec	r25
+  d4:	f1 f7       	brne	.-4      	; 0xd2 <TM1638_Read+0x8>
+  d6:	38 2f       	mov	r19, r24
+  d8:	97 e0       	ldi	r25, 0x07	; 7
+	DIO_IN;
+	_delay_us(1);
+	for(i=0;i<8;i++)
+	{
+		temp>>=1;
+  da:	26 95       	lsr	r18
+		CLK_low;
+  dc:	96 98       	cbi	0x12, 6	; 18
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+  de:	83 2f       	mov	r24, r19
+  e0:	8a 95       	dec	r24
+  e2:	f1 f7       	brne	.-4      	; 0xe0 <TM1638_Read+0x16>
+	{
+		temp>>=1;
+		CLK_low;
+		_delay_us(1);
+		if(DIO_READ)
+  e4:	87 99       	sbic	0x10, 7	; 16
+			temp|=0x80;
+  e6:	20 68       	ori	r18, 0x80	; 128
+		CLK_high;
+  e8:	96 9a       	sbi	0x12, 6	; 18
+  ea:	91 50       	subi	r25, 0x01	; 1
+  ec:	97 ff       	sbrs	r25, 7
+  ee:	f5 cf       	rjmp	.-22     	; 0xda <TM1638_Read+0x10>
+	}
+	return temp;
+}
+  f0:	82 2f       	mov	r24, r18
+  f2:	99 27       	eor	r25, r25
+  f4:	08 95       	ret
+
+000000f6 <Write_COM>:
+void Write_COM(unsigned char cmd,unsigned char STB_CS)		//发送命令字
+{
+  f6:	1f 93       	push	r17
+	PORTD&=pgm_read_byte(STB_SEL+STB_CS);//STB=0;
+  f8:	e6 2f       	mov	r30, r22
+  fa:	ff 27       	eor	r31, r31
+  fc:	ec 5a       	subi	r30, 0xAC	; 172
+  fe:	ff 4f       	sbci	r31, 0xFF	; 255
+ 100:	14 91       	lpm	r17, Z
+ 102:	92 b3       	in	r25, 0x12	; 18
+ 104:	91 23       	and	r25, r17
+ 106:	92 bb       	out	0x12, r25	; 18
+	TM1638_Write(cmd);
+ 108:	0e 94 52 00 	call	0xa4 <TM1638_Write>
+	PORTD|=~pgm_read_byte(STB_SEL+STB_CS);	//STB=1
+ 10c:	10 95       	com	r17
+ 10e:	82 b3       	in	r24, 0x12	; 18
+ 110:	81 2b       	or	r24, r17
+ 112:	82 bb       	out	0x12, r24	; 18
+{
+	uint8_t __ticks;
+	double __tmp = ((F_CPU) / 3e6) * __us;
+	if (__tmp < 1.0)
+		__ticks = 1;
+ 114:	81 e0       	ldi	r24, 0x01	; 1
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 116:	8a 95       	dec	r24
+ 118:	f1 f7       	brne	.-4      	; 0x116 <Write_COM+0x20>
+ 11a:	1f 91       	pop	r17
+ 11c:	08 95       	ret
+
+0000011e <Read_key>:
+	PORTD|=~pgm_read_byte(STB_SEL+STB_CS);	//STB=1
+	_delay_us(1);
+}
+unsigned char Read_key(unsigned char STB_CS)
+{
+ 11e:	8f 92       	push	r8
+ 120:	9f 92       	push	r9
+ 122:	af 92       	push	r10
+ 124:	bf 92       	push	r11
+ 126:	cf 92       	push	r12
+ 128:	df 92       	push	r13
+ 12a:	ef 92       	push	r14
+ 12c:	ff 92       	push	r15
+ 12e:	0f 93       	push	r16
+ 130:	1f 93       	push	r17
+ 132:	cf 93       	push	r28
+ 134:	df 93       	push	r29
+ 136:	cd b7       	in	r28, 0x3d	; 61
+ 138:	de b7       	in	r29, 0x3e	; 62
+ 13a:	24 97       	sbiw	r28, 0x04	; 4
+ 13c:	0f b6       	in	r0, 0x3f	; 63
+ 13e:	f8 94       	cli
+ 140:	de bf       	out	0x3e, r29	; 62
+ 142:	0f be       	out	0x3f, r0	; 63
+ 144:	cd bf       	out	0x3d, r28	; 61
+	unsigned char c[4],i,key_value=0;
+ 146:	aa 24       	eor	r10, r10
+	PORTD&=pgm_read_byte(STB_SEL+STB_CS);
+ 148:	e8 2e       	mov	r14, r24
+ 14a:	ff 24       	eor	r15, r15
+ 14c:	f7 01       	movw	r30, r14
+ 14e:	ec 5a       	subi	r30, 0xAC	; 172
+ 150:	ff 4f       	sbci	r31, 0xFF	; 255
+ 152:	94 91       	lpm	r25, Z
+ 154:	82 b3       	in	r24, 0x12	; 18
+ 156:	89 23       	and	r24, r25
+ 158:	82 bb       	out	0x12, r24	; 18
+	TM1638_Write(0x42);
+ 15a:	82 e4       	ldi	r24, 0x42	; 66
+ 15c:	0e 94 52 00 	call	0xa4 <TM1638_Write>
+{
+	uint8_t __ticks;
+	double __tmp = ((F_CPU) / 3e6) * __us;
+	if (__tmp < 1.0)
+		__ticks = 1;
+ 160:	81 e0       	ldi	r24, 0x01	; 1
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 162:	8a 95       	dec	r24
+ 164:	f1 f7       	brne	.-4      	; 0x162 <Read_key+0x44>
+ 166:	cc 24       	eor	r12, r12
+ 168:	dd 24       	eor	r13, r13
+ 16a:	93 e0       	ldi	r25, 0x03	; 3
+ 16c:	b9 2e       	mov	r11, r25
+	PORTD&=pgm_read_byte(STB_SEL+STB_CS);
+	TM1638_Write(0x42);
+	_delay_us(1);
+	for(i=0;i<4;i++)
+		c[i]=TM1638_Read();		//4个字节数据合成一个字节
+ 16e:	4e 01       	movw	r8, r28
+ 170:	08 94       	sec
+ 172:	81 1c       	adc	r8, r1
+ 174:	91 1c       	adc	r9, r1
+ 176:	86 01       	movw	r16, r12
+ 178:	08 0d       	add	r16, r8
+ 17a:	19 1d       	adc	r17, r9
+ 17c:	0e 94 65 00 	call	0xca <TM1638_Read>
+ 180:	f8 01       	movw	r30, r16
+ 182:	80 83       	st	Z, r24
+ 184:	ba 94       	dec	r11
+ 186:	08 94       	sec
+ 188:	c1 1c       	adc	r12, r1
+ 18a:	d1 1c       	adc	r13, r1
+ 18c:	b7 fe       	sbrs	r11, 7
+ 18e:	ef cf       	rjmp	.-34     	; 0x16e <Read_key+0x50>
+	PORTD|=~pgm_read_byte(STB_SEL+STB_CS);					//STB=1;
+ 190:	84 e5       	ldi	r24, 0x54	; 84
+ 192:	90 e0       	ldi	r25, 0x00	; 0
+ 194:	e8 0e       	add	r14, r24
+ 196:	f9 1e       	adc	r15, r25
+ 198:	f7 01       	movw	r30, r14
+ 19a:	94 91       	lpm	r25, Z
+ 19c:	90 95       	com	r25
+ 19e:	82 b3       	in	r24, 0x12	; 18
+ 1a0:	89 2b       	or	r24, r25
+ 1a2:	82 bb       	out	0x12, r24	; 18
+ 1a4:	f4 01       	movw	r30, r8
+ 1a6:	20 e0       	ldi	r18, 0x00	; 0
+ 1a8:	30 e0       	ldi	r19, 0x00	; 0
+ 1aa:	83 e0       	ldi	r24, 0x03	; 3
+ 1ac:	b8 2e       	mov	r11, r24
+	for(i=0;i<4;i++)
+		key_value|=c[i]<<i;
+ 1ae:	81 91       	ld	r24, Z+
+ 1b0:	99 27       	eor	r25, r25
+ 1b2:	02 2e       	mov	r0, r18
+ 1b4:	02 c0       	rjmp	.+4      	; 0x1ba <Read_key+0x9c>
+ 1b6:	88 0f       	add	r24, r24
+ 1b8:	99 1f       	adc	r25, r25
+ 1ba:	0a 94       	dec	r0
+ 1bc:	e2 f7       	brpl	.-8      	; 0x1b6 <Read_key+0x98>
+ 1be:	a8 2a       	or	r10, r24
+ 1c0:	ba 94       	dec	r11
+ 1c2:	2f 5f       	subi	r18, 0xFF	; 255
+ 1c4:	3f 4f       	sbci	r19, 0xFF	; 255
+ 1c6:	b7 fe       	sbrs	r11, 7
+ 1c8:	f2 cf       	rjmp	.-28     	; 0x1ae <Read_key+0x90>
+	for(i=0;i<8;i++)
+ 1ca:	bb 24       	eor	r11, r11
+ 1cc:	61 e0       	ldi	r22, 0x01	; 1
+ 1ce:	70 e0       	ldi	r23, 0x00	; 0
+ 1d0:	4a 2d       	mov	r20, r10
+ 1d2:	55 27       	eor	r21, r21
+ 1d4:	20 e0       	ldi	r18, 0x00	; 0
+ 1d6:	30 e0       	ldi	r19, 0x00	; 0
+		if((0x01<<i)==key_value)
+ 1d8:	cb 01       	movw	r24, r22
+ 1da:	02 2e       	mov	r0, r18
+ 1dc:	02 c0       	rjmp	.+4      	; 0x1e2 <Read_key+0xc4>
+ 1de:	88 0f       	add	r24, r24
+ 1e0:	99 1f       	adc	r25, r25
+ 1e2:	0a 94       	dec	r0
+ 1e4:	e2 f7       	brpl	.-8      	; 0x1de <Read_key+0xc0>
+ 1e6:	84 17       	cp	r24, r20
+ 1e8:	95 07       	cpc	r25, r21
+ 1ea:	31 f0       	breq	.+12     	; 0x1f8 <Read_key+0xda>
+ 1ec:	b3 94       	inc	r11
+ 1ee:	2f 5f       	subi	r18, 0xFF	; 255
+ 1f0:	3f 4f       	sbci	r19, 0xFF	; 255
+ 1f2:	f7 e0       	ldi	r31, 0x07	; 7
+ 1f4:	fb 15       	cp	r31, r11
+ 1f6:	80 f7       	brcc	.-32     	; 0x1d8 <Read_key+0xba>
+			break;
+	return i;
+}
+ 1f8:	8b 2d       	mov	r24, r11
+ 1fa:	99 27       	eor	r25, r25
+ 1fc:	24 96       	adiw	r28, 0x04	; 4
+ 1fe:	0f b6       	in	r0, 0x3f	; 63
+ 200:	f8 94       	cli
+ 202:	de bf       	out	0x3e, r29	; 62
+ 204:	0f be       	out	0x3f, r0	; 63
+ 206:	cd bf       	out	0x3d, r28	; 61
+ 208:	df 91       	pop	r29
+ 20a:	cf 91       	pop	r28
+ 20c:	1f 91       	pop	r17
+ 20e:	0f 91       	pop	r16
+ 210:	ff 90       	pop	r15
+ 212:	ef 90       	pop	r14
+ 214:	df 90       	pop	r13
+ 216:	cf 90       	pop	r12
+ 218:	bf 90       	pop	r11
+ 21a:	af 90       	pop	r10
+ 21c:	9f 90       	pop	r9
+ 21e:	8f 90       	pop	r8
+ 220:	08 95       	ret
+
+00000222 <Write_DATA>:
+void Write_DATA(unsigned char add,unsigned char DATA,unsigned char STB_CS)		//指定地址写入数据
+{
+ 222:	ff 92       	push	r15
+ 224:	0f 93       	push	r16
+ 226:	1f 93       	push	r17
+ 228:	08 2f       	mov	r16, r24
+ 22a:	f6 2e       	mov	r15, r22
+ 22c:	14 2f       	mov	r17, r20
+	Write_COM(0x44,STB_CS);
+ 22e:	64 2f       	mov	r22, r20
+ 230:	84 e4       	ldi	r24, 0x44	; 68
+ 232:	0e 94 7b 00 	call	0xf6 <Write_COM>
+	PORTD&=pgm_read_byte(STB_SEL+STB_CS);		//选择对应的模块
+ 236:	e1 2f       	mov	r30, r17
+ 238:	ff 27       	eor	r31, r31
+ 23a:	ec 5a       	subi	r30, 0xAC	; 172
+ 23c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 23e:	14 91       	lpm	r17, Z
+ 240:	82 b3       	in	r24, 0x12	; 18
+ 242:	81 23       	and	r24, r17
+ 244:	82 bb       	out	0x12, r24	; 18
+	TM1638_Write(0xc0|add);
+ 246:	80 2f       	mov	r24, r16
+ 248:	80 6c       	ori	r24, 0xC0	; 192
+ 24a:	0e 94 52 00 	call	0xa4 <TM1638_Write>
+	TM1638_Write(DATA);
+ 24e:	8f 2d       	mov	r24, r15
+ 250:	0e 94 52 00 	call	0xa4 <TM1638_Write>
+	PORTD|=~pgm_read_byte(STB_SEL+STB_CS);			//STB=1;
+ 254:	10 95       	com	r17
+ 256:	82 b3       	in	r24, 0x12	; 18
+ 258:	81 2b       	or	r24, r17
+ 25a:	82 bb       	out	0x12, r24	; 18
+ 25c:	1f 91       	pop	r17
+ 25e:	0f 91       	pop	r16
+ 260:	ff 90       	pop	r15
+ 262:	08 95       	ret
+
+00000264 <Write_ALLDATA>:
+}
+void Write_ALLDATA(unsigned char add,unsigned char *p,unsigned char cnt,unsigned char STB_CS)
+{
+ 264:	cf 92       	push	r12
+ 266:	df 92       	push	r13
+ 268:	ef 92       	push	r14
+ 26a:	ff 92       	push	r15
+ 26c:	0f 93       	push	r16
+ 26e:	1f 93       	push	r17
+ 270:	cf 93       	push	r28
+ 272:	df 93       	push	r29
+ 274:	cd b7       	in	r28, 0x3d	; 61
+ 276:	de b7       	in	r29, 0x3e	; 62
+ 278:	21 97       	sbiw	r28, 0x01	; 1
+ 27a:	0f b6       	in	r0, 0x3f	; 63
+ 27c:	f8 94       	cli
+ 27e:	de bf       	out	0x3e, r29	; 62
+ 280:	0f be       	out	0x3f, r0	; 63
+ 282:	cd bf       	out	0x3d, r28	; 61
+ 284:	8b 01       	movw	r16, r22
+ 286:	e4 2e       	mov	r14, r20
+ 288:	f2 2e       	mov	r15, r18
+	unsigned char i;
+	Write_COM(0x44,STB_CS);
+ 28a:	62 2f       	mov	r22, r18
+ 28c:	84 e4       	ldi	r24, 0x44	; 68
+ 28e:	0e 94 7b 00 	call	0xf6 <Write_COM>
+	for(i=0;i<cnt;i++)
+ 292:	90 e0       	ldi	r25, 0x00	; 0
+ 294:	9e 15       	cp	r25, r14
+ 296:	90 f4       	brcc	.+36     	; 0x2bc <Write_ALLDATA+0x58>
+ 298:	cc 24       	eor	r12, r12
+ 29a:	dd 24       	eor	r13, r13
+		{
+			Write_DATA(2*i,*(p+i),STB_CS);
+ 29c:	4f 2d       	mov	r20, r15
+ 29e:	f8 01       	movw	r30, r16
+ 2a0:	61 91       	ld	r22, Z+
+ 2a2:	8f 01       	movw	r16, r30
+ 2a4:	8c 2d       	mov	r24, r12
+ 2a6:	99 83       	std	Y+1, r25	; 0x01
+ 2a8:	0e 94 11 01 	call	0x222 <Write_DATA>
+ 2ac:	99 81       	ldd	r25, Y+1	; 0x01
+ 2ae:	9f 5f       	subi	r25, 0xFF	; 255
+ 2b0:	22 e0       	ldi	r18, 0x02	; 2
+ 2b2:	30 e0       	ldi	r19, 0x00	; 0
+ 2b4:	c2 0e       	add	r12, r18
+ 2b6:	d3 1e       	adc	r13, r19
+ 2b8:	9e 15       	cp	r25, r14
+ 2ba:	80 f3       	brcs	.-32     	; 0x29c <Write_ALLDATA+0x38>
+ 2bc:	21 96       	adiw	r28, 0x01	; 1
+ 2be:	0f b6       	in	r0, 0x3f	; 63
+ 2c0:	f8 94       	cli
+ 2c2:	de bf       	out	0x3e, r29	; 62
+ 2c4:	0f be       	out	0x3f, r0	; 63
+ 2c6:	cd bf       	out	0x3d, r28	; 61
+ 2c8:	df 91       	pop	r29
+ 2ca:	cf 91       	pop	r28
+ 2cc:	1f 91       	pop	r17
+ 2ce:	0f 91       	pop	r16
+ 2d0:	ff 90       	pop	r15
+ 2d2:	ef 90       	pop	r14
+ 2d4:	df 90       	pop	r13
+ 2d6:	cf 90       	pop	r12
+ 2d8:	08 95       	ret
+
+000002da <Write_oneLED>:
+		}
+}
+void Write_oneLED(unsigned char num,unsigned char flag,unsigned char STB_CS)	//单独控制一个LED函数，num为需要控制的led序号，flag为0时熄灭，不为0时点亮
+{
+ 2da:	99 27       	eor	r25, r25
+	if(flag)
+ 2dc:	66 23       	and	r22, r22
+ 2de:	29 f0       	breq	.+10     	; 0x2ea <Write_oneLED+0x10>
+		Write_DATA(2*num+1,1,STB_CS);
+ 2e0:	88 0f       	add	r24, r24
+ 2e2:	99 1f       	adc	r25, r25
+ 2e4:	61 e0       	ldi	r22, 0x01	; 1
+ 2e6:	86 0f       	add	r24, r22
+ 2e8:	03 c0       	rjmp	.+6      	; 0x2f0 <Write_oneLED+0x16>
+	else
+		Write_DATA(2*num+1,0,STB_CS);
+ 2ea:	88 0f       	add	r24, r24
+ 2ec:	99 1f       	adc	r25, r25
+ 2ee:	8f 5f       	subi	r24, 0xFF	; 255
+ 2f0:	0e 94 11 01 	call	0x222 <Write_DATA>
+ 2f4:	08 95       	ret
+
+000002f6 <Write_allLED>:
+}
+void Write_allLED(unsigned char LED_flag,unsigned char STB_CS)					//控制全部LED函数，LED_flag表示各个LED状态
+{
+ 2f6:	df 92       	push	r13
+ 2f8:	ef 92       	push	r14
+ 2fa:	ff 92       	push	r15
+ 2fc:	0f 93       	push	r16
+ 2fe:	1f 93       	push	r17
+ 300:	cf 93       	push	r28
+ 302:	df 93       	push	r29
+ 304:	d8 2e       	mov	r13, r24
+ 306:	e6 2e       	mov	r14, r22
+ 308:	00 e0       	ldi	r16, 0x00	; 0
+ 30a:	10 e0       	ldi	r17, 0x00	; 0
+ 30c:	27 e0       	ldi	r18, 0x07	; 7
+ 30e:	f2 2e       	mov	r15, r18
+ 310:	e8 01       	movw	r28, r16
+	unsigned char i;
+	for(i=0;i<8;i++)
+		{
+			if(LED_flag&(1<<i))
+ 312:	8d 2d       	mov	r24, r13
+ 314:	99 27       	eor	r25, r25
+ 316:	00 2e       	mov	r0, r16
+ 318:	02 c0       	rjmp	.+4      	; 0x31e <Write_allLED+0x28>
+ 31a:	95 95       	asr	r25
+ 31c:	87 95       	ror	r24
+ 31e:	0a 94       	dec	r0
+ 320:	e2 f7       	brpl	.-8      	; 0x31a <Write_allLED+0x24>
+ 322:	80 ff       	sbrs	r24, 0
+ 324:	03 c0       	rjmp	.+6      	; 0x32c <Write_allLED+0x36>
+				Write_DATA(2*i+1,3,STB_CS);
+ 326:	4e 2d       	mov	r20, r14
+ 328:	63 e0       	ldi	r22, 0x03	; 3
+ 32a:	02 c0       	rjmp	.+4      	; 0x330 <Write_allLED+0x3a>
+			else
+				Write_DATA(2*i+1,0,STB_CS);
+ 32c:	4e 2d       	mov	r20, r14
+ 32e:	60 e0       	ldi	r22, 0x00	; 0
+ 330:	8c 2f       	mov	r24, r28
+ 332:	8f 5f       	subi	r24, 0xFF	; 255
+ 334:	0e 94 11 01 	call	0x222 <Write_DATA>
+ 338:	fa 94       	dec	r15
+ 33a:	0f 5f       	subi	r16, 0xFF	; 255
+ 33c:	1f 4f       	sbci	r17, 0xFF	; 255
+ 33e:	22 96       	adiw	r28, 0x02	; 2
+ 340:	f7 fe       	sbrs	r15, 7
+ 342:	e7 cf       	rjmp	.-50     	; 0x312 <Write_allLED+0x1c>
+ 344:	df 91       	pop	r29
+ 346:	cf 91       	pop	r28
+ 348:	1f 91       	pop	r17
+ 34a:	0f 91       	pop	r16
+ 34c:	ff 90       	pop	r15
+ 34e:	ef 90       	pop	r14
+ 350:	df 90       	pop	r13
+ 352:	08 95       	ret
+
+00000354 <init_TM1638>:
+		}
+}
+void init_TM1638(unsigned char STB_CS)
+{
+ 354:	1f 93       	push	r17
+ 356:	cf 93       	push	r28
+ 358:	df 93       	push	r29
+ 35a:	18 2f       	mov	r17, r24
+	unsigned char i;
+	Write_COM(0x8b,STB_CS);//亮度
+ 35c:	68 2f       	mov	r22, r24
+ 35e:	8b e8       	ldi	r24, 0x8B	; 139
+ 360:	0e 94 7b 00 	call	0xf6 <Write_COM>
+	Write_COM(0x40,STB_CS);
+ 364:	61 2f       	mov	r22, r17
+ 366:	80 e4       	ldi	r24, 0x40	; 64
+ 368:	0e 94 7b 00 	call	0xf6 <Write_COM>
+	PORTD&=pgm_read_byte(STB_SEL+STB_CS);;
+ 36c:	c1 2f       	mov	r28, r17
+ 36e:	dd 27       	eor	r29, r29
+ 370:	fe 01       	movw	r30, r28
+ 372:	ec 5a       	subi	r30, 0xAC	; 172
+ 374:	ff 4f       	sbci	r31, 0xFF	; 255
+ 376:	94 91       	lpm	r25, Z
+ 378:	82 b3       	in	r24, 0x12	; 18
+ 37a:	89 23       	and	r24, r25
+ 37c:	82 bb       	out	0x12, r24	; 18
+	TM1638_Write(0xc0);
+ 37e:	80 ec       	ldi	r24, 0xC0	; 192
+ 380:	0e 94 52 00 	call	0xa4 <TM1638_Write>
+ 384:	1f e0       	ldi	r17, 0x0F	; 15
+	for(i=0;i<16;i++)
+		TM1638_Write(0x00);
+ 386:	80 e0       	ldi	r24, 0x00	; 0
+ 388:	0e 94 52 00 	call	0xa4 <TM1638_Write>
+ 38c:	11 50       	subi	r17, 0x01	; 1
+ 38e:	17 ff       	sbrs	r17, 7
+ 390:	fa cf       	rjmp	.-12     	; 0x386 <init_TM1638+0x32>
+	PORTD|=~pgm_read_byte(STB_SEL+STB_CS);
+ 392:	cc 5a       	subi	r28, 0xAC	; 172
+ 394:	df 4f       	sbci	r29, 0xFF	; 255
+ 396:	fe 01       	movw	r30, r28
+ 398:	94 91       	lpm	r25, Z
+ 39a:	90 95       	com	r25
+ 39c:	82 b3       	in	r24, 0x12	; 18
+ 39e:	89 2b       	or	r24, r25
+ 3a0:	82 bb       	out	0x12, r24	; 18
+ 3a2:	df 91       	pop	r29
+ 3a4:	cf 91       	pop	r28
+ 3a6:	1f 91       	pop	r17
+ 3a8:	08 95       	ret
+
+000003aa <port_init>:
+
+unsigned char num[48];		//各个数码管显示的值，最多级联6个，6*8=48
+void port_init(void)
+{
+	DDRD|=0xff;
+ 3aa:	81 b3       	in	r24, 0x11	; 17
+ 3ac:	8f ef       	ldi	r24, 0xFF	; 255
+ 3ae:	81 bb       	out	0x11, r24	; 17
+	PORTD|=0xff;
+ 3b0:	92 b3       	in	r25, 0x12	; 18
+ 3b2:	82 bb       	out	0x12, r24	; 18
+ 3b4:	08 95       	ret
+
+000003b6 <presence>:
+}
+
+unsigned char presence(void)		//检测存在的模块数量
+{
+ 3b6:	ff 92       	push	r15
+ 3b8:	0f 93       	push	r16
+ 3ba:	1f 93       	push	r17
+ 3bc:	cf 93       	push	r28
+ 3be:	df 93       	push	r29
+	unsigned char c,i;
+	for(i=6;i>0;i--)
+ 3c0:	36 e0       	ldi	r19, 0x06	; 6
+ 3c2:	f3 2e       	mov	r15, r19
+ 3c4:	ca e5       	ldi	r28, 0x5A	; 90
+ 3c6:	d0 e0       	ldi	r29, 0x00	; 0
+ 3c8:	8e 01       	movw	r16, r28
+	{
+		PORTD&=pgm_read_byte(STB_SEL+i);
+ 3ca:	f8 01       	movw	r30, r16
+ 3cc:	94 91       	lpm	r25, Z
+ 3ce:	82 b3       	in	r24, 0x12	; 18
+ 3d0:	89 23       	and	r24, r25
+ 3d2:	82 bb       	out	0x12, r24	; 18
+		TM1638_Write(0x42);
+ 3d4:	82 e4       	ldi	r24, 0x42	; 66
+ 3d6:	0e 94 52 00 	call	0xa4 <TM1638_Write>
+{
+	uint8_t __ticks;
+	double __tmp = ((F_CPU) / 3e6) * __us;
+	if (__tmp < 1.0)
+		__ticks = 1;
+ 3da:	81 e0       	ldi	r24, 0x01	; 1
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 3dc:	8a 95       	dec	r24
+ 3de:	f1 f7       	brne	.-4      	; 0x3dc <presence+0x26>
+		_delay_us(1);
+		c=TM1638_Read();
+ 3e0:	0e 94 65 00 	call	0xca <TM1638_Read>
+		PORTD|=~pgm_read_byte(STB_SEL+i);	//STB=1		
+ 3e4:	fe 01       	movw	r30, r28
+ 3e6:	24 91       	lpm	r18, Z
+ 3e8:	20 95       	com	r18
+ 3ea:	92 b3       	in	r25, 0x12	; 18
+ 3ec:	92 2b       	or	r25, r18
+ 3ee:	92 bb       	out	0x12, r25	; 18
+		if((c&0x04)==0)
+ 3f0:	82 ff       	sbrs	r24, 2
+ 3f2:	06 c0       	rjmp	.+12     	; 0x400 <presence+0x4a>
+ 3f4:	fa 94       	dec	r15
+ 3f6:	01 50       	subi	r16, 0x01	; 1
+ 3f8:	10 40       	sbci	r17, 0x00	; 0
+ 3fa:	21 97       	sbiw	r28, 0x01	; 1
+ 3fc:	ff 20       	and	r15, r15
+ 3fe:	29 f7       	brne	.-54     	; 0x3ca <presence+0x14>
+			break;
+	}
+	return i+1;
+ 400:	f3 94       	inc	r15
+}
+ 402:	8f 2d       	mov	r24, r15
+ 404:	99 27       	eor	r25, r25
+ 406:	df 91       	pop	r29
+ 408:	cf 91       	pop	r28
+ 40a:	1f 91       	pop	r17
+ 40c:	0f 91       	pop	r16
+ 40e:	ff 90       	pop	r15
+ 410:	08 95       	ret
+
+00000412 <main>:
+int main(void)
+{
+ 412:	cf e5       	ldi	r28, 0x5F	; 95
+ 414:	d4 e0       	ldi	r29, 0x04	; 4
+ 416:	de bf       	out	0x3e, r29	; 62
+ 418:	cd bf       	out	0x3d, r28	; 61
+	unsigned char i,j,STB_num,key_num;
+	port_init();
+ 41a:	0e 94 d5 01 	call	0x3aa <port_init>
+	STB_num=presence();
+ 41e:	0e 94 db 01 	call	0x3b6 <presence>
+ 422:	b8 2e       	mov	r11, r24
+	for(j=0;j<STB_num;j++)	//初始化显示内容为检测到的模块数量
+ 424:	10 e0       	ldi	r17, 0x00	; 0
+ 426:	1b 15       	cp	r17, r11
+ 428:	a8 f4       	brcc	.+42     	; 0x454 <main+0x42>
+		{
+			init_TM1638(j);
+ 42a:	81 2f       	mov	r24, r17
+ 42c:	0e 94 aa 01 	call	0x354 <init_TM1638>
+ 430:	00 e0       	ldi	r16, 0x00	; 0
+ 432:	c7 e0       	ldi	r28, 0x07	; 7
+			for(i=0;i<8;i++)
+			Write_DATA(i<<1,pgm_read_byte(tab+STB_num),j);
+ 434:	eb 2d       	mov	r30, r11
+ 436:	ff 27       	eor	r31, r31
+ 438:	e6 5a       	subi	r30, 0xA6	; 166
+ 43a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 43c:	84 91       	lpm	r24, Z
+ 43e:	41 2f       	mov	r20, r17
+ 440:	68 2f       	mov	r22, r24
+ 442:	80 2f       	mov	r24, r16
+ 444:	0e 94 11 01 	call	0x222 <Write_DATA>
+ 448:	c1 50       	subi	r28, 0x01	; 1
+ 44a:	0e 5f       	subi	r16, 0xFE	; 254
+ 44c:	c7 ff       	sbrs	r28, 7
+ 44e:	f2 cf       	rjmp	.-28     	; 0x434 <main+0x22>
+ 450:	1f 5f       	subi	r17, 0xFF	; 255
+ 452:	e9 cf       	rjmp	.-46     	; 0x426 <main+0x14>
+		}
+	while(1)
+		{
+			for(j=0;j<STB_num;j++)
+ 454:	10 e0       	ldi	r17, 0x00	; 0
+ 456:	1b 15       	cp	r17, r11
+ 458:	e8 f7       	brcc	.-6      	; 0x454 <main+0x42>
+ 45a:	ee 24       	eor	r14, r14
+ 45c:	ff 24       	eor	r15, r15
+ 45e:	67 01       	movw	r12, r14
+				{
+					key_num=Read_key(j);
+ 460:	81 2f       	mov	r24, r17
+ 462:	0e 94 8f 00 	call	0x11e <Read_key>
+ 466:	08 2f       	mov	r16, r24
+					if(key_num<8)
+ 468:	88 30       	cpi	r24, 0x08	; 8
+ 46a:	98 f5       	brcc	.+102    	; 0x4d2 <__stack+0x73>
+						{
+							num[8*j+key_num]++;
+ 46c:	c8 2f       	mov	r28, r24
+ 46e:	dd 27       	eor	r29, r29
+ 470:	f7 01       	movw	r30, r14
+ 472:	ec 0f       	add	r30, r28
+ 474:	fd 1f       	adc	r31, r29
+ 476:	e0 5a       	subi	r30, 0xA0	; 160
+ 478:	ff 4f       	sbci	r31, 0xFF	; 255
+ 47a:	80 81       	ld	r24, Z
+ 47c:	8f 5f       	subi	r24, 0xFF	; 255
+ 47e:	80 83       	st	Z, r24
+							while(Read_key(j)==key_num);		//等待按键释放
+ 480:	81 2f       	mov	r24, r17
+ 482:	0e 94 8f 00 	call	0x11e <Read_key>
+ 486:	80 17       	cp	r24, r16
+ 488:	d9 f3       	breq	.-10     	; 0x480 <__stack+0x21>
+							if(num[8*j+key_num]>15)
+ 48a:	f6 01       	movw	r30, r12
+ 48c:	43 e0       	ldi	r20, 0x03	; 3
+ 48e:	ee 0f       	add	r30, r30
+ 490:	ff 1f       	adc	r31, r31
+ 492:	4a 95       	dec	r20
+ 494:	e1 f7       	brne	.-8      	; 0x48e <__stack+0x2f>
+ 496:	ec 0f       	add	r30, r28
+ 498:	fd 1f       	adc	r31, r29
+ 49a:	e0 5a       	subi	r30, 0xA0	; 160
+ 49c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 49e:	80 81       	ld	r24, Z
+ 4a0:	80 31       	cpi	r24, 0x10	; 16
+ 4a2:	08 f0       	brcs	.+2      	; 0x4a6 <__stack+0x47>
+								num[8*j+key_num]=0;
+ 4a4:	10 82       	st	Z, r1
+							Write_DATA(key_num<<1,pgm_read_byte(tab+num[8*j+key_num]),j);
+ 4a6:	80 81       	ld	r24, Z
+ 4a8:	e8 2f       	mov	r30, r24
+ 4aa:	ff 27       	eor	r31, r31
+ 4ac:	e6 5a       	subi	r30, 0xA6	; 166
+ 4ae:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4b0:	84 91       	lpm	r24, Z
+ 4b2:	41 2f       	mov	r20, r17
+ 4b4:	68 2f       	mov	r22, r24
+ 4b6:	80 2f       	mov	r24, r16
+ 4b8:	88 0f       	add	r24, r24
+ 4ba:	0e 94 11 01 	call	0x222 <Write_DATA>
+							Write_allLED(1<<key_num,j);
+ 4be:	81 e0       	ldi	r24, 0x01	; 1
+ 4c0:	90 e0       	ldi	r25, 0x00	; 0
+ 4c2:	02 c0       	rjmp	.+4      	; 0x4c8 <__stack+0x69>
+ 4c4:	88 0f       	add	r24, r24
+ 4c6:	99 1f       	adc	r25, r25
+ 4c8:	ca 95       	dec	r28
+ 4ca:	e2 f7       	brpl	.-8      	; 0x4c4 <__stack+0x65>
+ 4cc:	61 2f       	mov	r22, r17
+ 4ce:	0e 94 7b 01 	call	0x2f6 <Write_allLED>
+ 4d2:	1f 5f       	subi	r17, 0xFF	; 255
+ 4d4:	08 94       	sec
+ 4d6:	c1 1c       	adc	r12, r1
+ 4d8:	d1 1c       	adc	r13, r1
+ 4da:	88 e0       	ldi	r24, 0x08	; 8
+ 4dc:	90 e0       	ldi	r25, 0x00	; 0
+ 4de:	e8 0e       	add	r14, r24
+ 4e0:	f9 1e       	adc	r15, r25
+ 4e2:	1b 15       	cp	r17, r11
+ 4e4:	08 f4       	brcc	.+2      	; 0x4e8 <__stack+0x89>
+ 4e6:	bc cf       	rjmp	.-136    	; 0x460 <__stack+0x1>
+ 4e8:	b5 cf       	rjmp	.-150    	; 0x454 <main+0x42>

@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\我的文档\C51\TM1638模块测试程序_级联\片选脚同一端口任意位置\tm1638.uv2
+Project File Date:  05/30/2010
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_WRITE_ONELED?MAIN
+Program Size: data=64.0 xdata=0 code=533
+creating hex file from "tm1638"...
+"tm1638" - 0 Error(s), 1 Warning(s).

@@ -1,0 +1,78 @@
+.        Detailnější informace a další varianty dodání testeru       . 
+ 
+ 
+Tester měřák součástek RLC ESR dioda tranzistor - grafický displej
+Modul - víceúčelový tester součástek řízený mikroprocesorem s grafickým displejem a s paticí pro součástky
+Řídící obvod: Jednočipový mikroprocesor Atmel ATmega328, 8MHz
+Pracovní napětí: 5 V (stabil. 78L05)
+Napájení: 9 V destičková baterie (není součástí dodávky), nebo jiným externím napětím
+Odběr při měření a zobrazování: 15 - 25 mA
+Odběr při vypnutém modulu a zhasnutém displeji: 20 nA
+Zobrazení naměřené hodnoty: grafický podsvícený LCD displej, s možností nastavení kontrastu v 10 stupních
+Rozměry: 70 x 63 x 20 mm (můžou se trochu odlišovat)
+Stav: nový, nepoužitý, funkční
+Obrázky jsou ilustrační (barva pl.spoje, tlačítka a ostatní nepodstané věci - může se lišit)
+Cena je za 1 ks (bez baterie)
+Doba dodání: dle zvolené varianty
+ 
+Modul měří :
+odpory (0,1 Ohm - 50 MOhm), 2 odpory, trimry, potenciometry
+kondenzátory (25 pF - 100 mF), od 2 uF i sér.odpor, ESR (rozlišení 0,01 Ohm)
+cívky 0,01 mH - 20 H
+bipolární tranzistory NPN, PNP, tranzistory MOS FET N, P kanál
+diody, dvě diody, dvojité diody (ukáže i kapacitu diody)
+LED diody, 2 LED
+zener.diody (do 4,5V)
+tyristor, triak (zapojení vývodů), ale záleží na konkrétní součástce a parametrech, ne úplně u každého triaku a tyristoru lze tímto testerem určit zapojení, vzhledem k měření 5V napětím)
+ 
+Popis použití
+Součástka se vloží do patice (s nulovou silou), nebo SMD součástka se přitiskne na měřící plošky a stiskne se tlačítko. Displej zobrazí napájecí napětí (napětí baterie) a poté provede změření připojené součástky. Po změření a určení, o jakou součástku se jedná, se na displeji zobrazí schema součástky, naměřené hodnoty a zapojení vývodů (tzn. na jakém vstupu je jaký vývod měřené součástky připojen, viz. obrázky). Po chvilce displej zhasne a modul přejde do úsporného režimu (s nulovým odběrem).
+U displeje lze nastavit i kontrast (v 10 stupních), to se při zapnutí provede dlouhým držením tlačítka a pak krátkými stistky se nastaví stupeň kontrastu. Ten je zapamatovám, dokud ho někdy příště stejným postupem nezměníte.
+Zapojení vývodů patice (z leva do prava) (spodní řada není na plošném spoji vždy u každého testeru popsána):
+vrchní řada: 1 2 3 1 1 1 1
+spodní řada: 2 2 2 3 3 3 3
+ 
+
+Důležité upozornění
+Kondenzátory se před měřením musí vybít, pokud se do modulu vloží nabitý kondenzátor, modul se může zničit! Pozor na to!
+Doporučuji modul zamontovat do nějaké krabičky (krabičku nabízím také), nebo minimálně na distanční sloupky, aby modul nebyl položen přímo na stole. Hrozí nebezpečí dotyku (zkratu), pokud by se modul dotknul něčeho kovového (vodiče a jiné předměty ležící na stole).
+Dávejte pozor na fólii s vodiči z displeje, nehýbejte s ní, chraňte ji proti poškození. Jinak hrozí nebezpečí, že displej přestane zobrazovat a bude nutná jeho výměna (při poškození je displej neopravitelný, pouze výměna za nový). Řešením je umístit tento modul do krabičky, čímž se ochrání nejenom displej (přívodní fólie s vodiči), ale i plošný spoj proti náhodnému dotyku nějakých kovových věcí.
+ 
+ 
+Upozornění - patice, displej
+Bohužel, někdy se stane, že dostanu tester s paticí, kde některé kontakty (otvory) v patici při otevření nejsou otevřeny maximálně a součástka se pak může hůře vkládat do patice. Není to ale až tak kritické a navíc kontakty v patici jsou zdvojené (ztrojené), čili součástka se může zastrčit i vedle. Ale i tak, mně  to vadí. Bohužel s tím nic nezmůžu. Možná jsem já moc náročný a třeba vám to vadit ani nebude. Pro všechny případy ale nabízím tyto patice k testerům samostatně (za 43 Kč) a při koupi testeru (ve variantě 2 a 3) nabízím 1 ks této patice i jako náhradní za zvýhodněnou cenu 30 Kč. Je potřeba mi ale napsat, kdybyste ji chtěli.
+Někdy se vám může zdát, že je displej trochu poškrábaný, hlavně, když je zhasnutý. Ale na displeji většinou bývá ochranná fólie, která se dá sundat, takže s displejem nic není. Já ale doporučuji fólii ponechat, pokud tam je. Pokud se vás s displejem něco stane, nabízím možnost tento displej dodat samostatně (za 250 Kč, nebo s výraznou slevou, pokud jste tester zakoupili u mne).
+Dodatek: Nyní, pokud se mi patice nelíbí, tak je opravuji (dá se to, když vám pod rukama projde těchto testerů a patic více, přijdete jak na to, ale nedoporučuji vám patici rozdělávat ;-) ), případně je měním za nové. Takže pokud zakoupíte tester přímo u mne (varianta 2. nebo 3.), nyní dostáváte  ode mne tester většinou v ještě lepším stavu, než přímo od výrobce, případně od jiného prodejce.
+A pokud byste sháněli displej (třeba byste si ho zničili), je možnost sehnat i displej samostatně. Takže kdybyste potřebovali patici, nebo displej, můžete se na mne obrátit.
+ 
+ 
+Praktické zkušenosti
+Tento měřící modul je výborná a relativně levná pomůcka, když potřebujete změřit parametry, případně určit zapojení vývodů. Některé hodnoty zobrazuje sice až na 4 cifry, ale pro praktické domácí použití obvykle stačí pouze první dvě a tak je to potřeba i brát. Nelze si myslet, že modul měří a zobrazuje hodnoty s absolutní přesností i poslení cifry vpravo a nelze od tohoto modulu očekávat přesnost profesionálního měřáku třeba kondenzátorů (v ceně několika tisíc). Dále je třeba brát v potas, že ne úplně všechny součástky to dokáže detekovat 100% správně. Problém je s některými tyristory a triaky, s germaniovými tranzistory a náhodně i s jinými polovodičovými součástkami. Je to otázka SW a uložených tabulek hodnot součástek v paměti měřáku. Ale pro domácí použití v této cenové relaci a v možnostech, které tyto moduly nabízí a měří, těžko budou hledat konkurenci. A kdo si tento měřák (modul) pořídí, hned si na něj zvykne, jako já .... :-)
+Tyto měřící moduly se dělají ve dvou varintách displejů - tento grafický větší displej (zobrazí i schema součástky), nebo o trochu levnější modul s menším textovým dvouřádkovým displejem (zobrazuje víceméně totéž, ale bez schematické značky součástky). Mám ho také v nabídce.
+ 
+ 
+Varianty dodání   ( 1, 2, 3 ) :
+ 
+1. Cena celkem 440 Kč - nejlevnější varianta (tu zvolíte tak, že při koupi vyberete obyčejný balík 0 Kč)
+Doba dodání 14 dní až 2 měsíce (nelze garantovat), nejčastěji do 3 týdnů (zboží je odesláno ze zahraničí přímo od výrobce/dodavatele na vaši adresu). Riziko placení CLA (normálně se neplatí, ale nemůžu garantovat), nebo dalších poplatků. Celní poplatek vám případně proplatím (po zaslání oskenovaných podkladů), ale už s tím budete mí starosti, pokud byste měli náhodou smůlu. Další riziko pro vás, pokud by s měřákem něco bylo (museli byste to řešit zasláním měřáku na mou adresu a čekat na vyřešení). Normálně jsou funkční, ale protože měřák nebudu moci ověřit, nemohu 100% garantovat, že by nemohl nastat problém.
+A pokud u mne nakoupíte ještě nějaké další věci, tak musí být zaslány samostatně a tester také samostatně. Žádné další věci nelze slučovat do jedné zásilky s testerem.
+Tuto variantu já moc nedoporučuji a přikláním se spíše k dalším variantám dodání.
+ 
+2. Příplatek 90 Kč, cena celkem tedy 440 + 90 = 530 Kč  (tuto variantu zvolíte tak, že při koupi vyberete doporučenou zásilku 90 Kč)
+Za příplatek 90 Kč garantuji funkčnost, dobu dodání do max. 16 prac.dnů po platbě (odešlu max.16-tý prac.den po připsání peněz na můj účet, jinak vrácení peněz, nebo sleva) a žádné další případné poplatky a komplikace (CLO a pod.). Zboží nechám poslat sobě (čili pro vás žádné riziko CLA a pod.), měřák zkontroluji a otestuji a obratem ho doporučeně odešlu vám. Příplatek 90 Kč je tedy na otestování měřáku a jeho zabalení i na doporučené poštovné (ode mne k vám).
+Navíc u této varianty lze do zásilky přidat i jiné zakoupené zboží (aniž by se nějak navyšovalo poštovné). Ale pozor, i pokud nákup přeleze částku 500 Kč, nevybírejte dopravu zdarma, poplatek 90 Kč je třeba zaplatit také, protože je součástí ceny testeru v této variantě 2. Za tester je potřeba zaplatit vždy v této variantě celkově 530 Kč.
+Tuto variantu já doporučuji, nic při ní neriskujete, do 16 prac.dnů vám odešlu funkční a mnou odzkoušený tester.
+ 
+3. Okamžité dodání, cena 595 Kč (cena je konečná, poštovné zdarma - doporučeně)
+Pokud byste chtěli okamžité dodání funkčního a odzkoušeného měřáku, vyhledejte v mých nabídkách tento totožný tester za 595 Kč, který mám skladem, s dobou dodání ihned po zaplacení (zpravidla další prac.den), případně mě kontaktujte e-mailem.
+U této varianty nehrozí žádné další poplatky, měřák je funkční (to garantuji, protože je mnou odzkoušený) a vám ho doporučeně odesílám v den připsání peněz na můj účet, nebo max. další prac. den, čili ho dostanete běžně následující prac. den.
+A u této varianty lze do zásilky samozř. přidávat i cokoli jiného, poštovné bude zdarma.
+Pokud měrák v jiné mé nabídce momentálně nenajdete, pravděpodobně jsou zrovna vyprodány, nebo je mám skladem, ale nestihl jsem je ještě vystavit na web. Máte-li o něj zájem, napiště mi na e-mail, odpovím vám, zda ho opavdu mám a mohu obratem odeslat, nebo kdy budu mít další (pokud zrovna nemám, určitě jsou další objednány a jsou na cestě). V případě zájmu vám mohu i nějaký rezervovat, nebo vás pak i sám informovat, že už je mám.
+ 
+ 
+Poznámka: Už jsem se u některých modulů s problémy setkal, vadných nebo problémových nebylo mnoho, ale občas se mi dostane pod ruku. To je hlavní důvod, proč raději doporučuji zvolit variantu 2 (případně 3), před variantou 1. Pokud byste měli smůlu a chytli náhodou nějaký problémový modul, už by to byly pro vás komplikace.
+ 
+Poznámka 2:  Jenom doplním, v poslední době se teď trochu častěji stalo, že jsem dostal nefunkční modul, který jsem zachytil a nepustil dále k vám. Takže znovu apeluji, raději si malinko připlatit a nevolit nejlevnější variatu 1., ale raději 2. (nebo 3.). I u ní se dá ještě diskutovat o ceně, pokud si ještě něco u mne zakoupíte, není problém nabídnout ještě slevu (pokud chcete a napíšete mi ale před vaším nákupem, abych to mohl předem propočítat, po nákupu je na slevu již pozdě).
+Je to jen o štěstí, jak jsem napsal výše, v naprosté většině jsou moduly funkční, ale problém může nastat a jak vidím, občas i nastane. Pokud modul po prvním zapnutí funguje, dále už problém nebývá. Nejčastější problém zatím byl, že displej po zapnutí měřáku nezobrazil vůbec nic (jako kdyby byl odpojen, ale odpojen nebyl).
+Přímé zaslání výrobku ze zahraničí na vaši adresu nabízejí i jiní prodejci a možná i levněji, než já. Je to vždy nejlevnější varianta, protože nemusíte platit další poštovné mezi prodejcem a vámi. A prodejce nemusí mít testery skladem a nemusí v tom mít uloženy peníze. A také se nemusí zdržovat rozbalováním, zkoušením a zase balením a odesíláním vám. Ale riziko vždy je a vždy větší (pro vás), než když to jde "přes prodejce" (u mě varianta 2., 3.), který je pak ochoten na sebe vzít příslušné riziko. Někteří prodejci ale tuto možnost ani nenabízejí, pouze přímé (nejlevnější) zaslání ze zahraničí na vaši adresu. Je to na vás, co si vyberete a za kolik korun .... Přeji šťastnou a dobrou volbu .... :-)
+Dodatek: Displeje odpojeny nejsou, ale dost často se stává, že je ne úplně nejlépe zabalen a zásilka není potom tolik odolná vůči otřesům (nebo hrubšímu zacházení, které může při mezinárodní přepravě asi nastat). Po detalnějším pohledu pod lupou je pak vidět, že u displeje bývají utržené některé vodiče na přívodní fólii a minimálně displej je pak na vyhození (takto poškozený displej opravit nelze, musí se dát zcela nový).

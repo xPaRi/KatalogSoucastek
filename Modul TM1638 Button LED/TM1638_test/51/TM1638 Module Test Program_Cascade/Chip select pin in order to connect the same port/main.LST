@@ -1,0 +1,73 @@
+C51 COMPILER V7.50   MAIN                                                                  05/31/2010 00:08:30 PAGE 1   
+
+
+C51 COMPILER V7.50, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include        <REGX52.H>
+   2          #include        <tm1638.h>
+   3          
+   4          
+   5          unsigned char num[48];          //各个数码管显示的值，最多级联6个，6*8=48
+   6          
+   7          unsigned char presence(void)            //检测存在的模块数量
+   8          {
+   9   1              unsigned char c,i;
+  10   1              for(i=6;i>0;i--)
+  11   1              {
+  12   2                      P0&=~(0x20>>i);
+  13   2                      TM1638_Write(0x42);
+  14   2                      c=TM1638_Read();
+  15   2                      P0|=(0x20>>i);  //STB=1         
+  16   2                      if((c&0x04)==0)
+  17   2                              break;
+  18   2              }
+  19   1              return i+1;
+  20   1      }
+  21          int main(void)
+  22          {
+  23   1              unsigned char i,j,STB_num,key_num;
+  24   1              STB_num=presence();
+  25   1              for(j=0;j<STB_num;j++)  //初始化显示内容为检测到的模块数量
+  26   1                      {
+  27   2                              init_TM1638(j);
+  28   2                              for(i=0;i<8;i++)
+  29   2                              Write_DATA(i<<1,tab[STB_num],j);
+  30   2                      }
+  31   1              while(1)
+  32   1                      {
+  33   2                              for(j=0;j<STB_num;j++)
+  34   2                                      {
+  35   3                                              key_num=Read_key(j);
+  36   3                                              if(key_num<8)
+  37   3                                                      {
+  38   4                                                              num[8*j+key_num]++;
+  39   4                                                              while(Read_key(j)==key_num);            //等待按键释放
+  40   4                                                              if(num[8*j+key_num]>15)
+  41   4                                                                      num[8*j+key_num]=0;
+  42   4                                                              Write_DATA(key_num<<1,tab[num[8*j+key_num]],j);
+  43   4                                                              Write_allLED(1<<key_num,j);
+  44   4                                                      }
+  45   3                                      }
+  46   2                      }
+  47   1      }
+  48          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    582    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V7.50   MAIN                                                                  05/31/2010 00:08:30 PAGE 2   
+
+   DATA SIZE        =     48       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

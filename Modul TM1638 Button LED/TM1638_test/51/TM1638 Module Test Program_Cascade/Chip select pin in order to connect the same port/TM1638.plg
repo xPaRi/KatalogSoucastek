@@ -1,0 +1,77 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+D:\我的文档\C51\TM1638模块测试程序_级联\片选脚同一端口顺序连接\TM1638.uv2
+Project File Date:  05/30/2010
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+tm1638.h(4): warning C318: can't open file 'avr/io.h'
+tm1638.h(5): warning C318: can't open file 'util/delay.h'
+tm1638.h(6): warning C318: can't open file 'avr/pgmspace.h'
+TM1638.H(31): error C202: 'PD6': undefined identifier
+TM1638.H(33): error C202: 'PD7': undefined identifier
+TM1638.H(35): error C202: 'PD7': undefined identifier
+TM1638.H(37): error C202: 'PD6': undefined identifier
+TM1638.H(44): error C202: 'PD7': undefined identifier
+TM1638.H(48): error C202: 'PD6': undefined identifier
+TM1638.H(49): error C202: 'PD7': undefined identifier
+TM1638.H(51): error C202: 'PD6': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+tm1638.h(4): warning C318: can't open file 'avr/io.h'
+tm1638.h(5): warning C318: can't open file 'util/delay.h'
+tm1638.h(6): warning C318: can't open file 'avr/pgmspace.h'
+TM1638.H(31): error C202: 'P06': undefined identifier
+TM1638.H(33): error C202: 'P07': undefined identifier
+TM1638.H(35): error C202: 'P07': undefined identifier
+TM1638.H(37): error C202: 'P06': undefined identifier
+TM1638.H(44): error C202: 'P07': undefined identifier
+TM1638.H(48): error C202: 'P06': undefined identifier
+TM1638.H(49): error C202: 'P07': undefined identifier
+TM1638.H(51): error C202: 'P06': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+tm1638.h(4): warning C318: can't open file 'avr/io.h'
+tm1638.h(5): warning C318: can't open file 'util/delay.h'
+tm1638.h(6): warning C318: can't open file 'avr/pgmspace.h'
+TM1638.H(66): warning C206: '_delay_us': missing function-prototype
+TM1638.H(66): error C267: '_delay_us': requires ANSI-style prototype
+MAIN.C(38): error C187: not an lvalue
+Target not created
+Build target 'Target 1'
+compiling main.c...
+TM1638.H(64): warning C206: '_delay_us': missing function-prototype
+TM1638.H(64): error C267: '_delay_us': requires ANSI-style prototype
+MAIN.C(38): error C187: not an lvalue
+Target not created
+Build target 'Target 1'
+compiling main.c...
+TM1638.H(82): warning C280: 'add': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_WRITE_ALLDATA?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_WRITE_ONELED?MAIN
+Program Size: data=71.0 xdata=0 code=714
+"TM1638" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_WRITE_ONELED?MAIN
+Program Size: data=64.0 xdata=0 code=613
+"TM1638" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_WRITE_ONELED?MAIN
+Program Size: data=64.0 xdata=0 code=613
+creating hex file from "TM1638"...
+"TM1638" - 0 Error(s), 1 Warning(s).
