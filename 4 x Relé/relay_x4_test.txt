@@ -1,0 +1,40 @@
+//Relay board test
+
+int out1 = 11;
+int out2 = 10;
+int out3 = 9;
+int out4 = 8;
+
+// the setup routine runs once when you press reset:
+void setup() {                
+  // initialize the digital pin as an output.
+  pinMode(out1, OUTPUT);
+   digitalWrite(out1, HIGH); //relay off
+  pinMode(out2, OUTPUT); 
+   digitalWrite(out2, HIGH); //relay off
+  pinMode(out3, OUTPUT);  
+   digitalWrite(out3, HIGH); //relay off
+  pinMode(out4, OUTPUT);  
+   digitalWrite(out4, HIGH); //relay off
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  digitalWrite(out1, LOW);
+  delay(1000);
+  digitalWrite(out2, LOW);
+  delay(1000);
+  digitalWrite(out3, LOW);
+  delay(1000);
+  digitalWrite(out4, LOW);
+  delay(1000);
+    
+  digitalWrite(out1, HIGH);
+  delay(1000);
+  digitalWrite(out2, HIGH);
+  delay(1000);
+  digitalWrite(out3, HIGH);
+  delay(1000);
+  digitalWrite(out4, HIGH);
+  delay(1000); 
+ }
