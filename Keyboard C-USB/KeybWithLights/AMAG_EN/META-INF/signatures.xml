@@ -1,0 +1,38 @@
+<signatures>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#" Id="PackageSignature">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <SignatureMethod Algorithm="http://www.w3.org/TR/xmldsig-core#rsa-sha1"/>
+      <Reference URI="#PackageContents">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+        <DigestValue>YH4ZjKMfs0UK/zF+mtcjOYO4AJb5dv/Gwddk/HywKQ0=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue Id="PackageSignatureValue">JtjAxcsmwyUVeP5IH3LbJzvM1XaQaNs5mZ9Xs8OAx1YywQuH2DLDWBmWfuKHkiWSyjdcI4W0HWux
+Ixykz4Ljhw8cT2bVe0T6qwqfJ3TfQbq3akmqpH6oCCUBmnHpTUzFKUGXmKcwSqd3LHXmLBWnY/Eg
+fr4RQj2iwu+HS3J78Vk=</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>MIICLTCCAZWgAwIBAgIaMzM5OTc2N2E6MTQ0NDQzYjc0MGU6LTgwMDAwDQYJKoZIhvcNAQEFBQAw
+QzELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDXdpbmtleWxlc3Mua3IxCTAHBgNVBAsTADERMA8GA1UE
+AxMIc2hvd2plYW4wHhcNMTQwMjE3MDkwMjMwWhcNMzkwMjE4MDkwMjMwWjBDMQswCQYDVQQGEwJV
+UzEWMBQGA1UEChMNd2lua2V5bGVzcy5rcjEJMAcGA1UECxMAMREwDwYDVQQDEwhzaG93amVhbjCB
+nzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAhPrh1glQXWcnKGWzzJXuFvqYTVdYhs7Nc8WLfDwj
+fWRNQ60+EtDA4dg3amQjwcjxENNti+9e0NhnLH9GaSzq4jWPq5jRMjA3tZbI694vthoUp7vFAToF
+/gy+tl4YhyG9gBkNDMcP+p8M8MCdlpObpaO1yhpCB+YFJMk9jZS0CmUCAwEAAaMXMBUwEwYDVR0l
+BAwwCgYIKwYBBQUHAwMwDQYJKoZIhvcNAQEFBQADggCBAFPw1xZIhta/Vvb9Y5Q1yzDHDOGxJnd8
+gE1V46ga/iY5brlZU06e9fS6HbBW0Dw/972/HW6KWFVdeHDt7C/HddjqsIHKc3VlyEl4M0Q2cDZD
+SdbkAc/Hpg25oDCytoSEsON3FATLU6ZSLH60adan0XqjN4HJJcba0JXKN+qZxNHx</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+    <Object>
+      <Manifest Id="PackageContents">
+        <Reference URI="mimetype"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>0/oCb84THKMagtI0Dy0KogEu92TegdesqRr/clXct1c=</DigestValue></Reference><Reference URI="META-INF/AIR/application.xml"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>Ct+NRrU9/+gAnBCZmzCbvCPFMXJ8C5b7P49SokXPcu4=</DigestValue></Reference><Reference URI="bin/gbmgr"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>oOvxmbYqQ779iedmOBK1p29mdsveYY7HDIKPHsNH12o=</DigestValue></Reference><Reference URI="bin/gbmgr.exe"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>02hO5xxpOn9VI76PwwnKwTY2WyN2j+PUoxIkuEfA9wI=</DigestValue></Reference><Reference URI="BootmapperClient.swf"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>SdobfxuN7bhPZspcp6lwX9pH3FCf9/2IWFS7ZF3Eo4Q=</DigestValue></Reference><Reference URI="icons/a87_family_symbol_128x128.png"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>1oWjGt+1N/yNM3wXCqgs69LZ/hsquQHCr0Gh4+ak1Xc=</DigestValue></Reference><Reference URI="icons/a87_family_symbol_16x16.png"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>ke4/qdS3AqX2WG9tbTbF+4joUeEEf/nHDFh06KQzUEQ=</DigestValue></Reference><Reference URI="icons/a87_family_symbol_48x48.png"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>iJVKhjW+b/xER23Sh2cwSPiWDRo2MlwMqId7CR9himU=</DigestValue></Reference><Reference URI="json/bootMapper.json"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>cXTZtsbaNxmAMTnvGjtLkex4B6giLkleoJR/AXHqPzY=</DigestValue></Reference><Reference URI="json/dualaction.json"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>Q7tROJUwaerjS0yzzqVdAYbF8qC2RTxRPcpWAjj6a6Q=</DigestValue></Reference><Reference URI="json/keyindex.json"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>f8ZS85mMNVyIhSVCNjSspGgEDYrgha/1MQgn1a/OybA=</DigestValue></Reference><Reference URI="json/keyindexmacro.json"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>mEeAGebU8XW5ONSOAplGods0JTMj0risMWHjjeSJQl4=</DigestValue></Reference><Reference URI="json/options.json"><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod><DigestValue>zb3rEs/g0/3gGuS6jZdIdXahb9rjxkAPmtB1RCkv1FQ=</DigestValue></Reference>
+      </Manifest>
+    </Object>
+    
+  </Signature>
+</signatures>
